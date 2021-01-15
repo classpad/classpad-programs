@@ -1,0 +1,190 @@
+
+'Args: dif0EQN
+'Namespace: dif0
+
+'© PETER T. 2021
+'https://classpad.github.io
+'LICENSED UNDER GPL-3.0
+'See COPYING file license information. You MUST include this file and note any changes with your fork.
+
+'VARIABLE MAPPING:
+'EQN2 => dif0vEQ2
+'EQN1 => dif0vEQ1
+'xSOLNS => dif0vxS1
+'xSOLNSt => dif0vTx1
+'x2SOLNS => dif0vxS2
+'x2SOLNSt => dif0vTx2
+'ySOLNS => dif0vyS_
+'y1SOLNS => dif0vyS1
+'y2SOLNS => dif0vyS2
+'mSOLNS => dif0vmS_
+'i => dif0vITR
+'y2_ => dif0vy2_
+'y2_T => dif0vTy2
+
+' --- ONLY COPY BELOW THIS SECTION ---
+
+'© PETER T. 2021
+'classpad.github.io
+'LICENSED UNDER GPL-3.0
+'See COPYING file license information. You MUST include this file and note any changes with your fork.
+
+GetType ■,dif0vSTR : If dif0vSTR≠"NONE": Then : CopyVar ■,dif0TMPZ : DelVar ■ : IfEnd
+GetType y,dif0vSTR : If dif0vSTR≠"NONE": Then : CopyVar y,dif0TMP0 : DelVar y : IfEnd
+GetType x,dif0vSTR : If dif0vSTR≠"NONE": Then : CopyVar x,dif0TMP1 : DelVar x : IfEnd
+GetType dy,dif0vSTR : If dif0vSTR≠"NONE": Then : CopyVar dy,dif0TMP2 : DelVar dy : IfEnd
+GetType d²y,dif0vSTR : If dif0vSTR≠"NONE": Then : CopyVar d²y,dif0TMP3 : DelVar d²y : IfEnd
+GetType dx,dif0vSTR : If dif0vSTR≠"NONE": Then : CopyVar dx,dif0TMP4 : DelVar dx : IfEnd
+GetType dx²,dif0vSTR : If dif0vSTR≠"NONE": Then : CopyVar dx²,dif0TMP5 : DelVar dx² : IfEnd
+GetType GMAX,dif0vSTR : If dif0vSTR≠"NONE": Then : CopyVar GMAX,dif0TMPb : DelVar GMAX : IfEnd
+GetType GMIN,dif0vSTR : If dif0vSTR≠"NONE": Then : CopyVar GMIN,dif0TMPc : DelVar GMIN : IfEnd
+GetType f,dif0vSTR : If dif0vSTR≠"NONE": Then : CopyVar f,dif0TMPd : DelVar f : IfEnd
+GetType P_x,dif0vSTR : If dif0vSTR≠"NONE": Then : CopyVar P_x,dif0TMPe : DelVar P_x : IfEnd
+GetType P_y,dif0vSTR : If dif0vSTR≠"NONE": Then : CopyVar P_y,dif0TMPf : DelVar P_y : IfEnd
+GetType P,dif0vSTR : If dif0vSTR≠"NONE": Then : CopyVar P,dif0TMPg : DelVar P : IfEnd
+
+fMax(dif0EQN)⇒dif0vMAX
+fMin(dif0EQN)⇒dif0vMIN
+{augment(listToMat(augment({GMAX,P_x},getRight(subList(dif0vMAX,2)))),listToMat(augment({f(x),P_y},getRight(fill(dif0vMAX[1],dim(dif0vMAX)-1))))),augment(listToMat(augment({GMIN,P_x},getRight(subList(dif0vMIN,2)))),listToMat(augment({f(x),P_y},getRight(fill(dif0vMIN[1],dim(dif0vMIN)-1)))))}⇒an1
+'{augment(listToMat(getLeft(fMin(dif0EQN))),listToMat(getRight(fMin(dif0EQN)))),augment(listToMat(getLeft(fMax(dif0EQN))),listToMat(getRight(fMax(dif0EQN))))}|{Maxue=GMAX,MinValue=GMIN}⇒an1
+
+diff(dif0EQN,x,3)⇒dif0vEQ3
+diff(dif0EQN,x,2)⇒dif0vEQ2
+diff(dif0EQN,x,1)⇒dif0vEQ1
+solve(0=dif0vEQ1)⇒dif0vxS1
+solve(0=dif0vEQ2)⇒dif0vxS2
+GetType dif0vxS2,dif0vTx2
+'StrCmp dif0vTx2,"LIST",dif0vTx2
+GetType dif0vxS1,dif0vTx1
+'StrCmp dif0vTx1,"LIST",dif0vTx1
+If dif0vTx1="LIST":Then
+  If dif0vTx2="LIST":Then
+    augment(dif0vxS1,dif0vxS2)⇒dif0vxS1
+  IfEnd
+
+  {}⇒dif0vyS_
+  {}⇒dif0vyS1
+  {}⇒dif0vyS2
+  {}⇒dif0vmS_
+
+  GetType TYPE,dif0vSTR : If dif0vSTR≠"NONE": Then : CopyVar TYPE,dif0TMP6 : DelVar TYPE : IfEnd
+  GetType LMAX,dif0vSTR : If dif0vSTR≠"NONE": Then : CopyVar LMAX,dif0TMP7 : DelVar LMAX : IfEnd
+  GetType LMIN,dif0vSTR : If dif0vSTR≠"NONE": Then : CopyVar LMIN,dif0TMP8 : DelVar LMIN : IfEnd
+  GetType INFL,dif0vSTR : If dif0vSTR≠"NONE": Then : CopyVar INFL,dif0TMP9 : DelVar INFL : IfEnd
+  GetType ERROR,dif0vSTR : If dif0vSTR≠"NONE": Then : CopyVar ERROR,dif0TMPa : DelVar ERROR : IfEnd
+  GetType UNDULATN,dif0vSTR : If dif0vSTR≠"NONE": Then : CopyVar UNDULATN,dif0TMPh : DelVar UNDULATN : IfEnd
+  GetType d³y,dif0vSTR : If dif0vSTR≠"NONE": Then : CopyVar d³y,dif0TMPi : DelVar d³y : IfEnd
+  GetType dx³,dif0vSTR : If dif0vSTR≠"NONE": Then : CopyVar dx³,dif0TMPj : DelVar dx³ : IfEnd
+
+  For 1⇒dif0vITR To dim(dif0vxS1)
+    augment(dif0vyS_,{simplify(dif0EQN|dif0vxS1[dif0vITR])})⇒dif0vyS_
+    augment(dif0vyS1,{simplify(dif0vEQ1|dif0vxS1[dif0vITR])})⇒dif0vyS1
+    simplify(dif0vEQ2|dif0vxS1[dif0vITR])|{x=1/0,y=1/0}⇒dif0vy2_
+    augment(dif0vyS2,{dif0vy2_})⇒dif0vyS2
+
+    GetType dif0vy2_,dif0vTy2
+    If dif0vTy2≠"NUM": Then
+      augment(dif0vmS_,{ERROR})⇒dif0vmS_
+    ElseIf dif0vy2_<0: Then
+      augment(dif0vmS_,{LMAX})⇒dif0vmS_
+    ElseIf dif0vy2_>0: Then
+      augment(dif0vmS_,{LMIN})⇒dif0vmS_
+    ElseIf dif0vy2_=0: Then
+      simplify(dif0vEQ3|dif0vxS1[dif0vITR])|{x=1/0,y=1/0}⇒dif0vy3_
+      GetType dif0vy3_,dif0vTy3
+      If dif0vTy3≠"NUM": Then
+        augment(dif0vmS_,{INFL*ERROR})⇒dif0vmS_
+      ElseIf dif0vy3_=0: Then
+        augment(dif0vmS_,{UNDULATN(d³y/dx³=0)})⇒dif0vmS_
+      Else:
+        augment(dif0vmS_,{INFL})⇒dif0vmS_
+      IfEnd
+      DelVar dif0vy3_
+      DelVar dif0vTy3
+    Else:
+      augment(dif0vmS_,{ERROR})⇒dif0vmS_
+    IfEnd
+  Next
+  DelVar dif0vTy2
+  DelVar dif0vITR
+  DelVar dif0vy2_
+
+  augment({P_y},dif0vyS_)⇒dif0vyS_
+  augment({blahblah=P_x},dif0vxS1)⇒dif0vxS1
+  augment({d²y/dx²},dif0vyS2)⇒dif0vyS2
+  augment({dy/dx},dif0vyS1)⇒dif0vyS1
+  augment({TYPE(P)},dif0vmS_)⇒dif0vmS_
+'Need a 'fake' function TYPE() to suppress 'updates' when we restore the values of the variables such as d2y, etc. In the case that the user has, say, a number stored in some 'display' variable (which we want to display as text), the variable doesnt get updated even after we've restored the variable's original value (before executing this program)
+  listToMat(getRight(dif0vxS1),dif0vyS_,dif0vyS1,dif0vyS2,dif0vmS_)⇒an
+
+  GetType dif0TMP6,dif0vSTR : If dif0vSTR≠"NONE": Then : CopyVar dif0TMP6,TYPE : DelVar dif0TMP6 : IfEnd
+  GetType dif0TMP7,dif0vSTR : If dif0vSTR≠"NONE": Then : CopyVar dif0TMP7,LMAX : DelVar dif0TMP7 : IfEnd
+  GetType dif0TMP8,dif0vSTR : If dif0vSTR≠"NONE": Then : CopyVar dif0TMP8,LMIN : DelVar dif0TMP8 : IfEnd
+  GetType dif0TMP9,dif0vSTR : If dif0vSTR≠"NONE": Then : CopyVar dif0TMP9,INFL : DelVar dif0TMP9 : IfEnd
+  GetType dif0TMPa,dif0vSTR : If dif0vSTR≠"NONE": Then : CopyVar dif0TMPa,ERROR : DelVar dif0TMPa : IfEnd
+  GetType dif0TMPh,dif0vSTR : If dif0vSTR≠"NONE": Then : CopyVar dif0TMPh,UNDULATN : DelVar dif0TMPh : IfEnd
+  GetType dif0TMPi,dif0vSTR : If dif0vSTR≠"NONE": Then : CopyVar dif0TMPi,d³y : DelVar dif0TMPi : IfEnd
+  GetType dif0TMPj,dif0vSTR : If dif0vSTR≠"NONE": Then : CopyVar dif0TMPj,dx³ : DelVar dif0TMPj : IfEnd
+
+Else
+  "ERROR: No local minimums, local maximums or inflection points found."⇒an
+IfEnd
+
+GetType Author,dif0vSTR : If dif0vSTR≠"NONE": Then : CopyVar Author,dif0TMPY : DelVar Author : IfEnd
+GetType Peter,dif0vSTR : If dif0vSTR≠"NONE": Then : CopyVar Peter,dif0TMPX : DelVar Peter : IfEnd
+GetType T,dif0vSTR : If dif0vSTR≠"NONE": Then : CopyVar T,dif0TMPW : DelVar T : IfEnd
+GetType Website,dif0vSTR : If dif0vSTR≠"NONE": Then : CopyVar Website,dif0TMPV : DelVar Website : IfEnd
+GetType classpad,dif0vSTR : If dif0vSTR≠"NONE": Then : CopyVar classpad,dif0TMPU : DelVar classpad : IfEnd
+GetType github,dif0vSTR : If dif0vSTR≠"NONE": Then : CopyVar github,dif0TMPT : DelVar github : IfEnd
+GetType io,dif0vSTR : If dif0vSTR≠"NONE": Then : CopyVar io,dif0TMPS : DelVar io : IfEnd
+  
+listToMat({y,dy/dx,d²y/dx²},{f(x),f'(x),f''(x)},{dif0EQN,dif0vEQ1,dif0vEQ2})⇒an0
+trn(augment(trn(an0),[[■,■],[Author,Peter×T],[Website,classpad×github×io]]))⇒dif0vSa0
+
+GetType dif0TMPZ,dif0vSTR : If dif0vSTR≠"NONE": Then : CopyVar dif0TMPZ,■ : DelVar dif0TMPZ : IfEnd
+GetType dif0TMPY,dif0vSTR : If dif0vSTR≠"NONE": Then : CopyVar dif0TMPY,Author : DelVar dif0TMPY : IfEnd
+GetType dif0TMPX,dif0vSTR : If dif0vSTR≠"NONE": Then : CopyVar dif0TMPX,Peter : DelVar dif0TMPX : IfEnd
+GetType dif0TMPW,dif0vSTR : If dif0vSTR≠"NONE": Then : CopyVar dif0TMPW,T : DelVar dif0TMPW : IfEnd
+GetType dif0TMPV,dif0vSTR : If dif0vSTR≠"NONE": Then : CopyVar dif0TMPV,Website : DelVar dif0TMPV : IfEnd
+GetType dif0TMPU,dif0vSTR : If dif0vSTR≠"NONE": Then : CopyVar dif0TMPU,classpad : DelVar dif0TMPU : IfEnd
+GetType dif0TMPT,dif0vSTR : If dif0vSTR≠"NONE": Then : CopyVar dif0TMPT,github : DelVar dif0TMPT : IfEnd
+GetType dif0TMPS,dif0vSTR : If dif0vSTR≠"NONE": Then : CopyVar dif0TMPS,io : DelVar dif0TMPS : IfEnd
+
+GetType dif0TMP0,dif0vSTR : If dif0vSTR≠"NONE": Then : CopyVar dif0TMP0,y : DelVar dif0TMP0 : IfEnd
+GetType dif0TMP1,dif0vSTR : If dif0vSTR≠"NONE": Then : CopyVar dif0TMP1,x : DelVar dif0TMP1 : IfEnd
+GetType dif0TMP2,dif0vSTR : If dif0vSTR≠"NONE": Then : CopyVar dif0TMP2,dy : DelVar dif0TMP2 : IfEnd
+GetType dif0TMP3,dif0vSTR : If dif0vSTR≠"NONE": Then : CopyVar dif0TMP3,d²y : DelVar dif0TMP3 : IfEnd
+GetType dif0TMP4,dif0vSTR : If dif0vSTR≠"NONE": Then : CopyVar dif0TMP4,dx : DelVar dif0TMP4 : IfEnd
+GetType dif0TMP5,dif0vSTR : If dif0vSTR≠"NONE": Then : CopyVar dif0TMP5,dx² : DelVar dif0TMP5 : IfEnd
+GetType dif0TMPb,dif0vSTR : If dif0vSTR≠"NONE": Then : CopyVar dif0TMPb,GMAX : DelVar dif0TMPb : IfEnd
+GetType dif0TMPc,dif0vSTR : If dif0vSTR≠"NONE": Then : CopyVar dif0TMPc,GMIN : DelVar dif0TMPc : IfEnd
+GetType dif0TMPd,dif0vSTR : If dif0vSTR≠"NONE": Then : CopyVar dif0TMPd,f : DelVar dif0TMPd : IfEnd
+GetType dif0TMPe,dif0vSTR : If dif0vSTR≠"NONE": Then : CopyVar dif0TMPe,P_x : DelVar dif0TMPe : IfEnd
+GetType dif0TMPf,dif0vSTR : If dif0vSTR≠"NONE": Then : CopyVar dif0TMPf,P_y : DelVar dif0TMPf : IfEnd
+GetType dif0TMPg,dif0vSTR : If dif0vSTR≠"NONE": Then : CopyVar dif0TMPg,P : DelVar dif0TMPg : IfEnd
+
+DelVar dif0vSTR
+DelVar dif0EQN
+DelVar dif0vEQ1
+DelVar dif0vEQ2
+DelVar dif0vEQ3
+DelVar dif0vxS1
+DelVar dif0vTx1
+DelVar dif0vxS2
+DelVar dif0vTx2
+DelVar dif0vyS_
+DelVar dif0vyS1
+DelVar dif0vyS2
+DelVar dif0vmS_
+DelVar dif0vSa1
+DelVar dif0vSan
+DelVar dif0vMIN
+DelVar dif0vMAX
+
+PrintNatural dif0vSa0,"Functions    [⇒an0]    [v1.0.0]"
+PrintNatural an,"Points of interest    [⇒an]    [v1.0.0]"
+PrintNatural an1,"fMin/fMax    [⇒an1]    [v1.0.0]"
+
+DelVar dif0vSa0
+
+Return an

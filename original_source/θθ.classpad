@@ -1,0 +1,47 @@
+DelVar p
+DelVar n
+DelVar q
+DelVar σ_M
+DelVar CI
+DelVar LOW
+DelVar UP
+DelVar M_ERR
+
+[[0,1,2,3,4,5,6],[1,2,3,4,5,6,7],[2,3,4,5,6,7,8],[3,4,5,6,7,8,9],[4,5,6,7,8,9,10],[5,6,7,8,9,10,11],[6,7,8,9,10,11,12]]⇒θ36
+
+abs(invNormCDf("C",0.95,1,0))⇒θ95
+abs(invNormCDf("C",0.90,1,0))⇒θ90
+abs(invNormCDf("C",0.99,1,0))⇒θ99
+
+If p_>1 or p_<0:Then
+  PrintNatural "WARN BAD P"
+IfEnd
+
+If n_≥30:Then
+  OK⇒n_c
+Else
+  BAD⇒n_c
+IfEnd
+
+If n_*p_≥10:Then
+  OK⇒np_c
+Else
+  BAD⇒np_c
+IfEnd
+
+If n_*(1-p_)≥10:Then
+  OK⇒nq_c
+Else
+  BAD⇒nq_c
+IfEnd
+
+(p_*(1-p_)/n_)^(1/2)⇒σ
+
+If n_*(1-p_)≥10 and n_*p_≥10 and n_≥30:Then
+  [[n,n_c,n_,30],[n*p,np_c,n_*p_,10],[n*q,nq_c,n_*(1-p_),10],[σ_M,0,σ,0],[CI,LOW,UP,M_ERR],[90,fRound(-θ90*σ+p_,4),fRound(θ90*σ+p_,4),fRound(θ90*σ,4)],[95,fRound(-θ95*σ+p_,4),fRound(θ95*σ+p_,4),fRound(θ95*σ,4)],[99,fRound(-θ99*σ+p_,4),fRound(θ99*σ+p_,4),fRound(θ99*σ,4)]]⇒an
+  PrintNatural an,"Large enough to be NORMAL [an]"
+Else
+  [[n,n_c,n_,30],[n*p,np_c,n_*p_,10],[n*q,nq_c,n_*(1-p_),10],[σ_M,0,σ,0],[CI,LOW,UP,M_ERR],[90,fRound(-θ90*σ+p_,4),fRound(θ90*σ+p_,4),fRound(θ90*σ,4)],[95,fRound(-θ95*σ+p_,4),fRound(θ95*σ+p_,4),fRound(θ95*σ,4)],[99,fRound(-θ99*σ+p_,4),fRound(θ99*σ+p_,4),fRound(θ99*σ,4)]]⇒an
+  PrintNatural an,"NOT LARGE ENOUGH TO BE NORMAL [an]"
+IfEnd
+

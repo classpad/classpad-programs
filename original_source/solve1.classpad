@@ -1,0 +1,29 @@
+solve(EQS[1],t)|{constn(1)=0}⇒SOLN1
+solve(EQS[2],t)|{constn(1)=0}⇒SOLN2
+
+solve(simplify(EQS[1]|SOLN2[1]),y)⇒EQS_1
+solve(simplify(EQS[2]|SOLN1[1]),y)⇒EQS_2
+
+
+GetType EQS_2,EQS_2s
+StrCmp EQS_2s,"LIST",EQS_2s
+GetType EQS_1,EQS_1s
+StrCmp EQS_1s,"LIST",EQS_1s
+If EQS_1s=0 and EQS_2s=0:Then
+  ({EQS_1,EQS_2})⇒an
+  ({SOLN2[1],SOLN1[1]})⇒an1
+ElseIf EQS_1s=0:Then
+  ({SOLN2[1]})⇒an1
+  ({EQS_1})⇒an
+Else
+  ({EQS_2})⇒an
+  ({SOLN1[1]})⇒an1
+IfEnd
+
+DelVar EQS
+DelVar EQS_1
+DelVar EQS_1s
+DelVar EQS_2
+DelVar EQS_2s
+PrintNatural an,"two equivalent solutions [an]"
+PrintNatural an1,"t values for respective solns [an1]"

@@ -1,0 +1,112 @@
+'Args: stt0_VAL,stt0_PRO
+'Namespace: stt0
+
+'© PETER T. 2021
+'https://classpad.github.io
+'LICENSED UNDER GPL-3.0
+'See COPYING file license information. You MUST include this file and note any changes with your fork.
+
+'VARIABLE MAPPING:
+'VAL => stt0_VAL
+'PRO => stt0_PRO
+'CHK => stt0_CHK
+'CHKT => stt0CHKT
+'E => stt0Expx
+'E2 => stt0Epx2
+'VAR => stt0_VAR
+'SDEV => stt0SDEV
+
+'WARNING: Manual replacements required:
+'E_x
+'E_{x^2}
+'VAR_x
+'SD_x
+
+' --- ONLY COPY BELOW THIS SECTION ---
+
+'© PETER T. 2021
+'classpad.github.io
+'LICENSED UNDER GPL-3.0
+'See COPYING file license information. You MUST include this file and note any changes with your fork.
+
+GetType E_x,stt0vSTR : If stt0vSTR≠"NONE": Then : CopyVar E_x,stt0TMP1 : DelVar E_x : IfEnd
+GetType E_{x^2},stt0vSTR : If stt0vSTR≠"NONE": Then : CopyVar E_{x^2},stt0TMP2 : DelVar E_{x^2} : IfEnd
+GetType VAR_x,stt0vSTR : If stt0vSTR≠"NONE": Then : CopyVar VAR_x,stt0TMP3 : DelVar VAR_x : IfEnd
+GetType SD_x,stt0vSTR : If stt0vSTR≠"NONE": Then : CopyVar SD_x,stt0TMP5 : DelVar SD_x : IfEnd
+
+GetType sum_of,stt0vSTR : If stt0vSTR≠"NONE": Then : CopyVar sum_of,stt0TMP0 : DelVar sum_of : IfEnd
+GetType σ²,stt0vSTR : If stt0vSTR≠"NONE": Then : CopyVar σ²,stt0TMP4 : DelVar σ² : IfEnd
+GetType σ,stt0vSTR : If stt0vSTR≠"NONE": Then : CopyVar σ,stt0TMP6 : DelVar σ : IfEnd
+
+GetType stt0_VAL,stt0VALT
+GetType stt0_PRO,stt0PROT
+If stt0VALT="MAT" and stt0PROT="MAT": Then
+  If colDim(stt0_VAL)=1 and colDim(stt0_PRO)=1 and rowDim(stt0_VAL)=rowDim(stt0_PRO): Then
+    matToList(stt0_VAL,1)⇒stt0_VAL
+    matToList(stt0_PRO,1)⇒stt0_PRO
+
+    sum(stt0_PRO)⇒stt0_CHK
+    GetType stt0_CHK,stt0CHKT
+    If stt0CHKT≠"NUM": Then
+      PrintNatural sum_of(P)=stt0_CHK,"WARNING: TYPE NaN    [v1.0.0]"
+    ElseIf stt0_CHK≠1: Then
+      PrintNatural sum_of(P)=stt0_CHK,"WARNING: ∑P ≠ 1    [v1.0.0]"
+    IfEnd
+    DelVar stt0_CHK
+    DelVar stt0CHKT
+
+    sum(stt0_VAL×stt0_PRO)⇒stt0Expx
+    sum(stt0_VAL^2×stt0_PRO)⇒stt0Epx2
+    stt0Epx2-stt0Expx^2⇒stt0_VAR
+    √(stt0_VAR)⇒stt0SDEV
+
+    simplify([[E_x,stt0Expx],[E_{x^2},stt0Epx2],[VAR_x(σ²),stt0_VAR],[SD_x(σ),stt0SDEV]])⇒an
+
+    DelVar stt0Expx
+    DelVar stt0Epx2
+    DelVar stt0_VAR
+    DelVar stt0SDEV
+  Else:
+    "ERROR: INVALID INPUT. Expected 1 column matrix with x, and 1 column matrix with P(X=x)"⇒an
+  IfEnd
+Else:
+  "ERROR: INVALID INPUT. Expected 1 column matrix with x, and 1 column matrix with P(X=x)"⇒an
+IfEnd
+
+DelVar stt0PROT
+DelVar stt0VALT
+DelVar stt0_PRO
+DelVar stt0_VAL
+
+GetType Author,stt0vSTR : If stt0vSTR≠"NONE": Then : CopyVar Author,stt0TMPY : DelVar Author : IfEnd
+GetType Peter,stt0vSTR : If stt0vSTR≠"NONE": Then : CopyVar Peter,stt0TMPX : DelVar Peter : IfEnd
+GetType T,stt0vSTR : If stt0vSTR≠"NONE": Then : CopyVar T,stt0TMPW : DelVar T : IfEnd
+GetType Website,stt0vSTR : If stt0vSTR≠"NONE": Then : CopyVar Website,stt0TMPV : DelVar Website : IfEnd
+GetType classpad,stt0vSTR : If stt0vSTR≠"NONE": Then : CopyVar classpad,stt0TMPU : DelVar classpad : IfEnd
+GetType github,stt0vSTR : If stt0vSTR≠"NONE": Then : CopyVar github,stt0TMPT : DelVar github : IfEnd
+GetType io,stt0vSTR : If stt0vSTR≠"NONE": Then : CopyVar io,stt0TMPS : DelVar io : IfEnd
+
+trn(augment(trn(an),trn([[Author,Website],[Peter×T,classpad×github×io]])))⇒stt0San_
+  
+GetType stt0TMPY,stt0vSTR : If stt0vSTR≠"NONE": Then : CopyVar stt0TMPY,Author : DelVar stt0TMPY : IfEnd
+GetType stt0TMPX,stt0vSTR : If stt0vSTR≠"NONE": Then : CopyVar stt0TMPX,Peter : DelVar stt0TMPX : IfEnd
+GetType stt0TMPW,stt0vSTR : If stt0vSTR≠"NONE": Then : CopyVar stt0TMPW,T : DelVar stt0TMPW : IfEnd
+GetType stt0TMPV,stt0vSTR : If stt0vSTR≠"NONE": Then : CopyVar stt0TMPV,Website : DelVar stt0TMPV : IfEnd
+GetType stt0TMPU,stt0vSTR : If stt0vSTR≠"NONE": Then : CopyVar stt0TMPU,classpad : DelVar stt0TMPU : IfEnd
+GetType stt0TMPT,stt0vSTR : If stt0vSTR≠"NONE": Then : CopyVar stt0TMPT,github : DelVar stt0TMPT : IfEnd
+GetType stt0TMPS,stt0vSTR : If stt0vSTR≠"NONE": Then : CopyVar stt0TMPS,io : DelVar stt0TMPS : IfEnd
+
+GetType stt0TMP1,stt0vSTR : If stt0vSTR≠"NONE": Then : CopyVar stt0TMP1,E_x : DelVar stt0TMP1 : IfEnd
+GetType stt0TMP2,stt0vSTR : If stt0vSTR≠"NONE": Then : CopyVar stt0TMP2,E_{x^2} : DelVar stt0TMP2 : IfEnd
+GetType stt0TMP3,stt0vSTR : If stt0vSTR≠"NONE": Then : CopyVar stt0TMP3,VAR_x : DelVar stt0TMP3 : IfEnd
+GetType stt0TMP5,stt0vSTR : If stt0vSTR≠"NONE": Then : CopyVar stt0TMP5,SD_x : DelVar stt0TMP5 : IfEnd
+
+GetType stt0TMP0,stt0vSTR : If stt0vSTR≠"NONE": Then : CopyVar stt0TMP0,sum_of : DelVar stt0TMP0 : IfEnd
+GetType stt0TMP4,stt0vSTR : If stt0vSTR≠"NONE": Then : CopyVar stt0TMP4,σ² : DelVar stt0TMP4 : IfEnd
+GetType stt0TMP6,stt0vSTR : If stt0vSTR≠"NONE": Then : CopyVar stt0TMP6,σ : DelVar stt0TMP6 : IfEnd
+DelVar stt0vSTR
+
+PrintNatural stt0San_,"Summary    [⇒an]    [v1.0.0]"
+DelVar stt0San_
+
+Return an

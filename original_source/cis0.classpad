@@ -1,0 +1,35 @@
+2π/POW⇒λ
+arg(CPLX)/POW⇒POL
+abs(CPLX)^(1/POW)⇒MODULUS
+
+DelVar zn
+DelVar n
+{αCis(θ+nλ)}⇒listθ
+{α+β√(-1)}⇒listz
+{zn}⇒listn
+
+For 0⇒i To POW-1
+  λ×i+POL⇒θ
+  If θ>π: Then
+    θ-2π⇒θ
+  ElseIf θ<-π: Then
+    2π-θ⇒θ
+  IfEnd
+  augment(listθ,{MODULUS×Cis(θ)})⇒listθ
+  augment(listz,{collect(expand(MODULUS×(cos(θ)+n×sin(θ))),n)})⇒listz
+  augment(listn,{i})⇒listn
+Next
+
+DelVar θ
+listToMat(listn,listθ,listz)|{n=√(-1)}⇒an
+ExpToStr λ,STR
+StrJoin "λ=",STR,STR
+StrJoin STR," [an]",STR
+PrintNatural an,STR
+
+DelVar STR
+DelVar λ
+DelVar listθ
+DelVar listn
+DelVar MODULUS
+DelVar i

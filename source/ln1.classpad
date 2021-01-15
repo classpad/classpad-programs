@@ -1,0 +1,199 @@
+'Args: crv1FUNC,crv1_LOW,crv1_UP_
+'Namespace: crv1
+
+'© PETER T. 2021
+'https://classpad.github.io
+'LICENSED UNDER GPL-3.0
+'See COPYING file license information. You MUST include this file and note any changes with your fork.
+
+'VARIABLE MAPPING:
+'STR => crv1_STR
+'CDF => crv1_CDF
+'CHK => crv1_CHK
+'MEDEq => crv1MEqn
+'LIM_ => crv1_LIM
+'LIM__ => crv1LIM_
+'TYPE => crv1TYPE
+'Usoln_ => crv1Usl_
+'Usoln => crv1Usln
+'Usolv => crv1Uslv
+'i => crv1_ITR
+'l => crv1_LOW
+'u => crv1_UP_
+'f => crv1FUNC
+'U => crv1___U
+'VAR => crv1_VAR
+'SDEV => <NULL>
+'MED_ => crv1_MED
+'
+'
+'
+
+'WARNING: Manual replacements required:
+'E_x
+'VAR_x
+'SD_x
+'MED_x
+'MED_x≈
+
+' --- ONLY COPY BELOW THIS SECTION ---
+
+'© PETER T. 2021
+'classpad.github.io
+'LICENSED UNDER GPL-3.0
+'See COPYING file license information. You MUST include this file and note any changes with your fork.
+
+GetType x,crv1vSTR : If crv1vSTR≠"NONE": Then : CopyVar x,crv1TMPc : DelVar x : IfEnd
+'Need these here otherwise for some reason the picewise function evaluates itself (which appears as undef.)
+GetType E_x,crv1vSTR : If crv1vSTR≠"NONE": Then : CopyVar E_x,crv1TMP1 : DelVar E_x : IfEnd
+GetType VAR_x,crv1vSTR : If crv1vSTR≠"NONE": Then : CopyVar VAR_x,crv1TMP3 : DelVar VAR_x : IfEnd
+GetType SD_x,crv1vSTR : If crv1vSTR≠"NONE": Then : CopyVar SD_x,crv1TMP4 : DelVar SD_x : IfEnd
+GetType σ²,crv1vSTR : If crv1vSTR≠"NONE": Then : CopyVar σ²,crv1TMP5 : DelVar σ² : IfEnd
+GetType σ,crv1vSTR : If crv1vSTR≠"NONE": Then : CopyVar σ,crv1TMP6 : DelVar σ : IfEnd
+GetType MED,crv1vSTR : If crv1vSTR≠"NONE": Then : CopyVar MED,crv1TMP7 : DelVar MED : IfEnd
+GetType MED_x,crv1vSTR : If crv1vSTR≠"NONE": Then : CopyVar MED_x,crv1TMP8 : DelVar MED_x : IfEnd
+'GetType MED_x≈,crv1vSTR : 'If crv1vSTR≠"NONE": 'Then : 'CopyVar MED_x≈,crv1TMP9 : 'DelVar MED_x≈ : 'IfEnd
+GetType X,crv1vSTR : If crv1vSTR≠"NONE": Then : CopyVar X,crv1TMPa : DelVar X : IfEnd
+GetType CDF,crv1vSTR : If crv1vSTR≠"NONE": Then : CopyVar CDF,crv1TMPb : DelVar CDF : IfEnd
+  
+'Finds another bound given one.
+If crv1_LOW=crv1_UP_:Then
+  GetType MIN_,crv1vSTR : If crv1vSTR≠"NONE": Then : CopyVar MIN_,crv1TMPd : DelVar MIN_ : IfEnd
+  GetType MAX_,crv1vSTR : If crv1vSTR≠"NONE": Then : CopyVar MAX_,crv1TMPe : DelVar MAX_ : IfEnd
+  GetType LIMIT,crv1vSTR : If crv1vSTR≠"NONE": Then : CopyVar LIMIT,crv1TMPf : DelVar LIMIT : IfEnd
+  DelVar crv1___U
+  {}⇒crv1Usln
+  {}⇒crv1Usl_
+  {-∞,∞}⇒crv1_LIM
+  ∫(crv1FUNC,x,crv1_LOW,crv1___U)⇒crv1Uslv
+  For 1⇒crv1_ITR To 2
+    lim(abs(crv1Uslv),crv1___U,crv1_LIM[crv1_ITR])⇒crv1LIM_
+
+    GetType crv1LIM_,crv1TYPE
+    If crv1TYPE="NUM" and crv1LIM_=1:Then
+      augment({crv1_LIM[crv1_ITR]},crv1Usln)⇒crv1Usln
+    IfEnd
+  Next
+
+  augment(getRight(solve(abs(crv1Uslv)=1,crv1___U)),crv1Usln)⇒crv1Usln
+  For 1⇒crv1_ITR To dim(crv1Usln)
+    If crv1Usln[crv1_ITR]>crv1_LOW:Then
+      If ∫(crv1FUNC,x,crv1_LOW,crv1Usln[crv1_ITR])=1:Then
+        augment({LIMIT(MAX_)=crv1Usln[crv1_ITR]},crv1Usl_)⇒crv1Usl_
+      IfEnd
+    Else
+      If ∫(crv1FUNC,x,crv1Usln[crv1_ITR],crv1_UP_)=1:Then
+        augment({LIMIT(MIN_)=crv1Usln[crv1_ITR]},crv1Usl_)⇒crv1Usl_
+      IfEnd
+    IfEnd
+  Next
+  crv1Usl_⇒an
+
+  ExpToStr crv1_UP_,crv1_STR
+  StrJoin "other limits if ",crv1_STR,crv1_STR
+  StrJoin crv1_STR," is a known limit",crv1_STR
+  
+  GetType crv1TMPc,crv1vSTR : If crv1vSTR≠"NONE": Then : CopyVar crv1TMPc,x : DelVar crv1TMPc : IfEnd
+  GetType crv1TMPd,crv1vSTR : If crv1vSTR≠"NONE": Then : CopyVar crv1TMPd,MIN_ : DelVar crv1TMPd : IfEnd
+  GetType crv1TMPe,crv1vSTR : If crv1vSTR≠"NONE": Then : CopyVar crv1TMPe,MAX_ : DelVar crv1TMPe : IfEnd
+  GetType crv1TMPf,crv1vSTR : If crv1vSTR≠"NONE": Then : CopyVar crv1TMPf,LIMIT : DelVar crv1TMPf : IfEnd
+
+  DelVar crv1_ITR
+  DelVar crv1vSTR
+  DelVar crv1Usln
+  DelVar crv1Usl_
+  DelVar crv1Uslv
+  DelVar crv1TYPE
+  DelVar crv1_LIM
+  DelVar crv1LIM_
+  
+  PrintNatural an,crv1_STR
+  DelVar crv1_STR
+  Return an
+  Stop
+IfEnd
+
+
+∫(crv1FUNC,x,crv1_LOW,crv1_UP_)⇒crv1_CHK
+If crv1_CHK≠1:Then
+  GetType sum_of,crv1vSTR : If crv1vSTR≠"NONE": Then : CopyVar sum_of,crv1TMP0 : DelVar sum_of : IfEnd
+  DelVar crv1vSTR
+  PrintNatural sum_of(crv1FUNC)=crv1_CHK,"WARN ∑P ≠ 1"
+  GetType crv1TMP0,crv1vSTR : If crv1vSTR≠"NONE": Then : CopyVar crv1TMP0,sum_of : DelVar crv1TMP0 : IfEnd
+IfEnd
+
+'MED REALLOC VARIABLE.
+0.5=∫(crv1FUNC,x,MED,crv1_UP_)⇒crv1MEqn
+solve(crv1MEqn,MED,crv1_LOW,crv1_LOW,crv1_UP_)⇒crv1_MED
+∫(x*crv1FUNC,x,crv1_LOW,crv1_UP_)⇒crv1_Exp
+∫(x^2*crv1FUNC,x,crv1_LOW,crv1_UP_)-crv1_Exp^2⇒crv1_VAR
+
+∫(crv1FUNC,x,crv1_LOW,k)|k=x⇒crv1_CDF
+
+'piecewise
+ExpToStr crv1_CDF,crv1_CDF
+ExpToStr crv1_LOW,crv1_LOW
+ExpToStr crv1_UP_,crv1_UP_
+StrJoin "piecewise(x<",crv1_LOW,crv1_STR
+StrJoin crv1_STR,",0,piecewise(",crv1_STR
+StrJoin crv1_STR,crv1_LOW,crv1_STR
+StrJoin crv1_STR,"≤x≤",crv1_STR
+StrJoin crv1_STR,crv1_UP_,crv1_STR
+StrJoin crv1_STR,",",crv1_STR
+StrJoin crv1_STR,crv1_CDF,crv1_STR
+StrJoin crv1_STR,",piecewise(x>",crv1_STR
+StrJoin crv1_STR,crv1_UP_,crv1_STR
+StrJoin crv1_STR,",1,1/0)))",crv1_STR
+
+simplify([[E_x,crv1_Exp],[VAR_x(σ²),crv1_VAR],[SD_x(σ),√(crv1_VAR)],[MED_x≈,getRight(crv1_MED[1])],[MED_x,simplify(getRight(crv1MEqn))],[CDF(X≤x),strToExp(crv1_STR)]])⇒an
+
+GetType crv1TMP1,crv1vSTR : If crv1vSTR≠"NONE": Then : CopyVar crv1TMP1,E_x : DelVar crv1TMP1 : IfEnd
+GetType crv1TMP3,crv1vSTR : If crv1vSTR≠"NONE": Then : CopyVar crv1TMP3,VAR_x : DelVar crv1TMP3 : IfEnd
+GetType crv1TMP4,crv1vSTR : If crv1vSTR≠"NONE": Then : CopyVar crv1TMP4,SD_x : DelVar crv1TMP4 : IfEnd
+GetType crv1TMP5,crv1vSTR : If crv1vSTR≠"NONE": Then : CopyVar crv1TMP5,σ² : DelVar crv1TMP5 : IfEnd
+GetType crv1TMP6,crv1vSTR : If crv1vSTR≠"NONE": Then : CopyVar crv1TMP6,σ : DelVar crv1TMP6 : IfEnd
+GetType crv1TMP7,crv1vSTR : If crv1vSTR≠"NONE": Then : CopyVar crv1TMP7,MED : DelVar crv1TMP7 : IfEnd
+GetType crv1TMP8,crv1vSTR : If crv1vSTR≠"NONE": Then : CopyVar crv1TMP8,MED_x : DelVar crv1TMP8 : IfEnd
+'GetType crv1TMP9,crv1vSTR : 'If crv1vSTR≠"NONE": 'Then : 'CopyVar crv1TMP9,MED_x≈ : 'DelVar crv1TMP9 : 'IfEnd
+GetType crv1TMPa,crv1vSTR : If crv1vSTR≠"NONE": Then : CopyVar crv1TMPa,X : DelVar crv1TMPa : IfEnd
+GetType crv1TMPb,crv1vSTR : If crv1vSTR≠"NONE": Then : CopyVar crv1TMPb,CDF : DelVar crv1TMPb : IfEnd
+GetType crv1TMPc,crv1vSTR : If crv1vSTR≠"NONE": Then : CopyVar crv1TMPc,x : DelVar crv1TMPc : IfEnd
+
+DelVar crv1vSTR
+DelVar crv1_CHK
+DelVar crv1_CDF
+DelVar crv1_STR
+DelVar crv1_LOW
+DelVar crv1_UP_
+DelVar crv1_Exp
+DelVar crv1_VAR
+DelVar crv1MEqn
+
+GetType Author,crv1vSTR : If crv1vSTR≠"NONE": Then : CopyVar Author,crv1TMPY : DelVar Author : IfEnd
+GetType Peter,crv1vSTR : If crv1vSTR≠"NONE": Then : CopyVar Peter,crv1TMPX : DelVar Peter : IfEnd
+GetType T,crv1vSTR : If crv1vSTR≠"NONE": Then : CopyVar T,crv1TMPW : DelVar T : IfEnd
+GetType Website,crv1vSTR : If crv1vSTR≠"NONE": Then : CopyVar Website,crv1TMPV : DelVar Website : IfEnd
+GetType classpad,crv1vSTR : If crv1vSTR≠"NONE": Then : CopyVar classpad,crv1TMPU : DelVar classpad : IfEnd
+GetType github,crv1vSTR : If crv1vSTR≠"NONE": Then : CopyVar github,crv1TMPT : DelVar github : IfEnd
+GetType io,crv1vSTR : If crv1vSTR≠"NONE": Then : CopyVar io,crv1TMPS : DelVar io : IfEnd
+
+trn(augment(trn(an),trn([[Author,Website],[Peter×T,classpad×github×io]])))⇒crv1San_
+
+GetType crv1TMPY,crv1vSTR : If crv1vSTR≠"NONE": Then : CopyVar crv1TMPY,Author : DelVar crv1TMPY : IfEnd
+GetType crv1TMPX,crv1vSTR : If crv1vSTR≠"NONE": Then : CopyVar crv1TMPX,Peter : DelVar crv1TMPX : IfEnd
+GetType crv1TMPW,crv1vSTR : If crv1vSTR≠"NONE": Then : CopyVar crv1TMPW,T : DelVar crv1TMPW : IfEnd
+GetType crv1TMPV,crv1vSTR : If crv1vSTR≠"NONE": Then : CopyVar crv1TMPV,Website : DelVar crv1TMPV : IfEnd
+GetType crv1TMPU,crv1vSTR : If crv1vSTR≠"NONE": Then : CopyVar crv1TMPU,classpad : DelVar crv1TMPU : IfEnd
+GetType crv1TMPT,crv1vSTR : If crv1vSTR≠"NONE": Then : CopyVar crv1TMPT,github : DelVar crv1TMPT : IfEnd
+GetType crv1TMPS,crv1vSTR : If crv1vSTR≠"NONE": Then : CopyVar crv1TMPS,io : DelVar crv1TMPS : IfEnd
+DelVar crv1vSTR
+
+PrintNatural crv1San_,"Summary    [⇒an]    [v1.0.0]"
+DelVar crv1San_
+
+If dim(crv1_MED)≠1:Then
+  PrintNatural crv1_MED,"WARNING: MULTIPLE MEDIANS FOUND"
+IfEnd
+DelVar crv1_MED
+
+Return an

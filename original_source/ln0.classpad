@@ -1,0 +1,44 @@
+If colDim(VAL)=1 and colDim(PRO)=1 and rowDim(VAL)=rowDim(PRO): Then
+
+matToList(VAL,1)⇒VAL
+matToList(PRO,1)⇒PRO
+
+sum(PRO)⇒CHK
+GetType CHK,CHKT
+If CHKT≠"NUM": Then
+  DelVar sum_of
+  PrintNatural sum_of(P)=CHK,"WARN: TYPE NaN"
+ElseIf CHK≠1: Then
+  DelVar sum_of
+  PrintNatural sum_of(P)=CHK,"WARN ∑P≠1"
+  
+IfEnd
+DelVar CHK
+DelVar CHKT
+
+sum(VAL×PRO)⇒E
+sum(VAL^2×PRO)⇒E2
+E2-E^2⇒VAR
+√(VAR)⇒SDEV
+
+DelVar Ex
+DelVar Ex2
+DelVar VARx
+DelVar σ²
+DelVar SDEVx
+DelVar σ
+
+simplify([[Ex,E],[Ex2,E2],[VARx(σ²),VAR],[SDEVx(σ),SDEV]])⇒an
+PrintNatural an,"Summary [an]"
+
+DelVar E
+DelVar E2
+DelVar VAR
+DelVar SDEV
+
+Else:
+Message "INVALID INPUT MATRIX"
+IfEnd
+
+DelVar PRO
+DelVar VAR

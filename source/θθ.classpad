@@ -1,0 +1,96 @@
+
+'Args: θ_0___p,θ_0___n
+'Namespace: θ_0
+
+'© PETER T. 2021
+'https://classpad.github.io
+'LICENSED UNDER GPL-3.0
+'See COPYING file license information. You MUST include this file and note any changes with your fork.
+
+'VARIABLE MAPPING:
+'σ => θ_0SDσ
+'n_c => θ_0_n_c
+'np_c => θ_0np_c
+'nq_c => θ_0nq_c
+'p_ => θ_0___p
+'n_ => θ_0___n
+' --- ONLY COPY BELOWER THIS SECTION ---
+
+'© PETER T. 2021
+'classpad.github.io
+'LICENSED UNDER GPL-3.0
+'See COPYING file license information. You MUST include this file and note any changes with your fork.
+
+GetType ■,θ_0vSTR : If θ_0vSTR≠"NONE": Then : CopyVar ■,θ_0TMP0 : DelVar ■ : IfEnd
+GetType OK,θ_0vSTR : If θ_0vSTR≠"NONE": Then : CopyVar OK,θ_0TMP1 : DelVar OK : IfEnd
+GetType BAD,θ_0vSTR : If θ_0vSTR≠"NONE": Then : CopyVar BAD,θ_0TMP2 : DelVar BAD : IfEnd
+GetType LOWER,θ_0vSTR : If θ_0vSTR≠"NONE": Then : CopyVar LOWER,θ_0TMP3 : DelVar LOWER : IfEnd
+GetType UPPER,θ_0vSTR : If θ_0vSTR≠"NONE": Then : CopyVar UPPER,θ_0TMP4 : DelVar UPPER : IfEnd
+GetType M_ERR,θ_0vSTR : If θ_0vSTR≠"NONE": Then : CopyVar M_ERR,θ_0TMP5 : DelVar M_ERR : IfEnd
+GetType CL,θ_0vSTR : If θ_0vSTR≠"NONE": Then : CopyVar CL,θ_0TMP6 : DelVar CL : IfEnd
+GetType p,θ_0vSTR : If θ_0vSTR≠"NONE": Then : CopyVar p,θ_0TMP7 : DelVar p : IfEnd
+GetType n,θ_0vSTR : If θ_0vSTR≠"NONE": Then : CopyVar n,θ_0TMP8 : DelVar n : IfEnd
+GetType q,θ_0vSTR : If θ_0vSTR≠"NONE": Then : CopyVar q,θ_0TMP9 : DelVar q : IfEnd
+GetType σ,θ_0vSTR : If θ_0vSTR≠"NONE": Then : CopyVar σ,θ_0TMPa : DelVar σ : IfEnd
+GetType SD,θ_0vSTR : If θ_0vSTR≠"NONE": Then : CopyVar SD,θ_0TMPb : DelVar SD : IfEnd
+
+[[0,1,2,3,4,5,6],[1,2,3,4,5,6,7],[2,3,4,5,6,7,8],[3,4,5,6,7,8,9],[4,5,6,7,8,9,10],[5,6,7,8,9,10,11],[6,7,8,9,10,11,12]]⇒θ36
+abs(invNormCDf("C",0.95,1,0))⇒θ95
+abs(invNormCDf("C",0.90,1,0))⇒θ90
+abs(invNormCDf("C",0.99,1,0))⇒θ99
+
+If θ_0___p>1 or θ_0___p<0:Then
+  PrintNatural "WARNING: Bad p","[v1.0.0]"
+IfEnd
+
+If θ_0___n≥30:Then
+  OK⇒θ_0_n_c
+Else
+  BAD⇒θ_0_n_c
+IfEnd
+
+If θ_0___n*θ_0___p≥10:Then
+  OK⇒θ_0np_c
+Else
+  BAD⇒θ_0np_c
+IfEnd
+
+If θ_0___n*(1-θ_0___p)≥10:Then
+  OK⇒θ_0nq_c
+Else
+  BAD⇒θ_0nq_c
+IfEnd
+
+(θ_0___p*(1-θ_0___p)/θ_0___n)^(1/2)⇒θ_0SDσ
+[[n,θ_0_n_c,θ_0___n,30],[n*p,θ_0np_c,θ_0___n*θ_0___p,10],[n*q,θ_0nq_c,θ_0___n*(1-θ_0___p),10],[SD(σ),θ_0SDσ,■,■],[CL,LOWER,UPPER,M_ERR],[90,fRound(-θ90*θ_0SDσ+θ_0___p,4),fRound(θ90*θ_0SDσ+θ_0___p,4),fRound(θ90*θ_0SDσ,4)],[95,fRound(-θ95*θ_0SDσ+θ_0___p,4),fRound(θ95*θ_0SDσ+θ_0___p,4),fRound(θ95*θ_0SDσ,4)],[99,fRound(-θ99*θ_0SDσ+θ_0___p,4),fRound(θ99*θ_0SDσ+θ_0___p,4),fRound(θ99*θ_0SDσ,4)]]⇒an
+
+GetType θ_0TMP0,θ_0vSTR : If θ_0vSTR≠"NONE": Then : CopyVar θ_0TMP0,■ : DelVar θ_0TMP0 : IfEnd
+GetType θ_0TMP1,θ_0vSTR : If θ_0vSTR≠"NONE": Then : CopyVar θ_0TMP1,OK : DelVar θ_0TMP1 : IfEnd
+GetType θ_0TMP2,θ_0vSTR : If θ_0vSTR≠"NONE": Then : CopyVar θ_0TMP2,BAD : DelVar θ_0TMP2 : IfEnd
+GetType θ_0TMP3,θ_0vSTR : If θ_0vSTR≠"NONE": Then : CopyVar θ_0TMP3,LOWER : DelVar θ_0TMP3 : IfEnd
+GetType θ_0TMP4,θ_0vSTR : If θ_0vSTR≠"NONE": Then : CopyVar θ_0TMP4,UPPER : DelVar θ_0TMP4 : IfEnd
+GetType θ_0TMP5,θ_0vSTR : If θ_0vSTR≠"NONE": Then : CopyVar θ_0TMP5,M_ERR : DelVar θ_0TMP5 : IfEnd
+GetType θ_0TMP6,θ_0vSTR : If θ_0vSTR≠"NONE": Then : CopyVar θ_0TMP6,CL : DelVar θ_0TMP6 : IfEnd
+GetType θ_0TMP7,θ_0vSTR : If θ_0vSTR≠"NONE": Then : CopyVar θ_0TMP7,p : DelVar θ_0TMP7 : IfEnd
+GetType θ_0TMP8,θ_0vSTR : If θ_0vSTR≠"NONE": Then : CopyVar θ_0TMP8,n : DelVar θ_0TMP8 : IfEnd
+GetType θ_0TMP9,θ_0vSTR : If θ_0vSTR≠"NONE": Then : CopyVar θ_0TMP9,q : DelVar θ_0TMP9 : IfEnd
+GetType θ_0TMPa,θ_0vSTR : If θ_0vSTR≠"NONE": Then : CopyVar θ_0TMPa,σ : DelVar θ_0TMPa : IfEnd
+GetType θ_0TMP0,θ_0vSTR : If θ_0vSTR≠"NONE": Then : CopyVar θ_0TMPb,SD : DelVar θ_0TMPb : IfEnd
+DelVar θ_0nq_c
+DelVar θ_0np_c
+DelVar θ_0_n_c
+DelVar θ_0SDσ
+
+If θ_0___n*(1-θ_0___p)≥10 and θ_0___n*θ_0___p≥10 and θ_0___n≥30:Then
+  DelVar θ_0___p
+  DelVar θ_0___n
+  PrintNatural an,"OK: n is large.    [⇒an]    [v1.0.0]"
+Else
+  DelVar θ_0___p
+  DelVar θ_0___n
+  PrintNatural an,"WARNING: n too small!    [⇒an]    [v1.0.0]"
+IfEnd
+
+DelVar θ_0vSTR
+
+Return an

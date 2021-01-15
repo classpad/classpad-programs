@@ -1,0 +1,85 @@
+'© PETER TANNER 2020
+
+diff(EQN,x,2)⇒EQN2
+diff(EQN,x,1)⇒EQN1
+solve(0=EQN1)⇒xSOLNS
+solve(0=EQN2)⇒x2SOLNS
+GetType x2SOLNS,x2SOLNSt
+StrCmp x2SOLNSt,"LIST",x2SOLNSt
+GetType xSOLNS,xSOLNSt
+StrCmp xSOLNSt,"LIST",xSOLNSt
+If xSOLNSt=0:Then
+If x2SOLNSt=0:Then
+  augment(xSOLNS,x2SOLNS)⇒xSOLNS
+IfEnd
+
+{}⇒ySOLNS
+{}⇒y1SOLNS
+{}⇒y2SOLNS
+{}⇒mSOLNS
+
+DelVar MAX_
+DelVar MIN_
+DelVar INFLECT
+DelVar ERROR
+
+For 1⇒i To dim(xSOLNS)
+  augment(ySOLNS,{simplify(EQN|xSOLNS[i])})⇒ySOLNS
+  augment(y1SOLNS,{simplify(EQN1|xSOLNS[i])})⇒y1SOLNS
+  simplify(EQN2|xSOLNS[i])|{x=1/0,y=1/0}⇒y2_
+  augment(y2SOLNS,{y2_})⇒y2SOLNS
+
+  GetType y2_,y2_T
+  If y2_T≠"NUM": Then
+    augment(mSOLNS,{ERROR})⇒mSOLNS
+  ElseIf y2_<0: Then
+    augment(mSOLNS,{MAX_})⇒mSOLNS
+  ElseIf y2_>0: Then
+    augment(mSOLNS,{MIN_})⇒mSOLNS
+  ElseIf y2_=0: Then
+    augment(mSOLNS,{INFL})⇒mSOLNS
+  Else:
+    augment(mSOLNS,{ERR})⇒mSOLNS
+  IfEnd
+Next
+
+DelVar y2_T
+DelVar i
+DelVar y2_
+DelVar yVAL
+DelVar xVAL
+DelVar dy
+DelVar d²y
+DelVar dx
+DelVar dx²
+DelVar TYPE
+
+augment({yVAL},ySOLNS)⇒ySOLNS
+augment({x=xVAL},xSOLNS)⇒xSOLNS
+augment({d²y/dx²},y2SOLNS)⇒y2SOLNS
+augment({dy/dx},y1SOLNS)⇒y1SOLNS
+augment({TYPE},mSOLNS)⇒mSOLNS
+
+listToMat(getRight(xSOLNS),ySOLNS,y1SOLNS,y2SOLNS,mSOLNS)⇒an
+listToMat({y,dy/dx,d²y/dx²},{EQN,EQN1,EQN2})⇒an0
+PrintNatural an0,"Functions [an0]"
+PrintNatural an,"Points of interest [an]"
+
+Else
+
+Message "ERROR: No local minimums, local maximums or inflection points found.","ERROR"
+IfEnd
+
+{augment(listToMat(getLeft(fMin(EQN))),listToMat(getRight(fMin(EQN)))),augment(listToMat(getLeft(fMax(EQN))),listToMat(getRight(fMax(EQN))))}⇒an1
+PrintNatural an1,"fMin/fMax [an1]"
+
+DelVar EQN
+DelVar EQN1
+DelVar EQN2
+DelVar xSOLNS
+DelVar xSOLNSt
+DelVar x2SOLNS
+DelVar x2SOLNSt
+DelVar ySOLNS
+DelVar y2SOLNS
+DelVar mSOLNS

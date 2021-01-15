@@ -1,0 +1,31 @@
+
+'Args: slv0FUNC
+'Namespace: slv0
+
+'© PETER T. 2021
+'https://classpad.github.io
+'LICENSED UNDER GPL-3.0
+'See COPYING file license information. You MUST include this file and note any changes with your fork.
+
+'VARIABLE MAPPING:
+'DIM_ => slv0_DIM
+'EQN => slv0FUNC
+
+' --- ONLY COPY BELOW THIS SECTION ---
+
+'© PETER T. 2021
+'classpad.github.io
+'LICENSED UNDER GPL-3.0
+'See COPYING file license information. You MUST include this file and note any changes with your fork.
+
+dim(slv0FUNC)⇒slv0_DIM
+If slv0_DIM[1]=slv0_DIM[2]-1 and slv0_DIM[1]>1: Then
+  ref(slv0FUNC)⇒an0
+  PrintNatural an0,"Echelon form    [⇒an0]    [v1.0.0]"
+  trn(subMat(slv0FUNC,1,1,slv0_DIM[1],slv0_DIM[1])^(-1)×subMat(slv0FUNC,1,slv0_DIM[2],slv0_DIM[1],slv0_DIM[2]))⇒an
+  DelVar slv0_DIM
+Else 
+  "ERROR: input must be an n×n+1 matrix, where n>1"⇒an
+IfEnd
+PrintNatural an,"Solutions    [⇒an]    [v1.0.0]"
+Return an

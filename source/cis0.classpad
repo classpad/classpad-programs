@@ -1,0 +1,109 @@
+
+'Args: cis0_POW,cis0CPLX
+'Namespace: cis0
+
+'!!MANUAL REPLACEMENTS REQUIRED!!: z_n => z[subscript n]
+
+'© PETER T. 2021
+'https://classpad.github.io
+'LICENSED UNDER GPL-3.0
+'See COPYING file license information. You MUST include this file and note any changes with your fork.
+
+' POW => cis0_POW
+' CPLX => cis0CPLX
+
+' --- ONLY COPY BELOW THIS SECTION ---
+
+'© PETER T. 2021
+'classpad.github.io
+'LICENSED UNDER GPL-3.0
+'See COPYING file license information. You MUST include this file and note any changes with your fork.
+
+'Reallocate text variables. This ensures any variables out of the namespace which need to be empty for it to display are not deleted but temporarily moved instead.
+GetType z,cis0vSTR : If cis0vSTR≠"NONE": Then : CopyVar z,cis0TMP0 : DelVar z : IfEnd
+GetType z_n,cis0vSTR : If cis0vSTR≠"NONE": Then : CopyVar z_n,cis0TMP1 : DelVar z_n : IfEnd
+GetType cis,cis0vSTR : If cis0vSTR≠"NONE": Then : CopyVar cis,cis0TMP2 : DelVar cis : IfEnd
+GetType n,cis0vSTR : If cis0vSTR≠"NONE": Then : CopyVar n,cis0TMP3 : DelVar n : IfEnd
+GetType λ,cis0vSTR : If cis0vSTR≠"NONE": Then : CopyVar λ,cis0TMP4 : DelVar λ : IfEnd
+GetType θ,cis0vSTR : If cis0vSTR≠"NONE": Then : CopyVar θ,cis0TMP5 : DelVar θ : IfEnd
+GetType α,cis0vSTR : If cis0vSTR≠"NONE": Then : CopyVar α,cis0TMP6 : DelVar α : IfEnd
+GetType β,cis0vSTR : If cis0vSTR≠"NONE": Then : CopyVar β,cis0TMP7 : DelVar β : IfEnd
+
+DelVar cis0vTMn
+
+SetComplex
+
+2π/cis0_POW⇒cis0vDAN
+arg(cis0CPLX)/cis0_POW⇒cis0vPOL
+abs(cis0CPLX)^(1/cis0_POW)⇒cis0vMOD
+
+{abs(z)*cis(n*λ+θ)}⇒cis0vLθ
+{α+β√(-1)}⇒cis0vLIz
+{z_n}⇒cis0vLIn
+
+For 0⇒cis0vITR To cis0_POW-1
+  cis0vDAN×cis0vITR+cis0vPOL⇒cis0vAθ
+  If cis0vAθ>π: Then
+    cis0vAθ-2π⇒cis0vAθ
+  ElseIf cis0vAθ<-π: Then
+    2π-cis0vAθ⇒cis0vAθ
+  IfEnd
+  augment(cis0vLθ,{cis0vMOD×cis(cis0vAθ)})⇒cis0vLθ
+  augment(cis0vLIz,{collect(expand(cis0vMOD×(cos(cis0vAθ)+cis0vTMn×sin(cis0vAθ))),cis0vTMn)})⇒cis0vLIz
+  augment(cis0vLIn,{cis0vITR})⇒cis0vLIn
+Next
+
+listToMat(cis0vLIn,cis0vLθ,cis0vLIz)|{cis0vTMn=√(-1)}⇒an
+
+GetType ■,cis0vSTR : If cis0vSTR≠"NONE": Then : CopyVar ■,cis0TMPZ : DelVar ■ : IfEnd
+GetType Author,cis0vSTR : If cis0vSTR≠"NONE": Then : CopyVar Author,cis0TMPY : DelVar Author : IfEnd
+GetType Peter,cis0vSTR : If cis0vSTR≠"NONE": Then : CopyVar Peter,cis0TMPX : DelVar Peter : IfEnd
+GetType T,cis0vSTR : If cis0vSTR≠"NONE": Then : CopyVar T,cis0TMPW : DelVar T : IfEnd
+GetType Website,cis0vSTR : If cis0vSTR≠"NONE": Then : CopyVar Website,cis0TMPV : DelVar Website : IfEnd
+GetType classpad,cis0vSTR : If cis0vSTR≠"NONE": Then : CopyVar classpad,cis0TMPU : DelVar classpad : IfEnd
+GetType github,cis0vSTR : If cis0vSTR≠"NONE": Then : CopyVar github,cis0TMPT : DelVar github : IfEnd
+GetType io,cis0vSTR : If cis0vSTR≠"NONE": Then : CopyVar io,cis0TMPS : DelVar io : IfEnd
+
+trn(augment(trn(an),[[■,■],[Author,Peter×T],[Website,classpad×github×io]]))⇒cis0vSan
+
+'Move text variables back to original value. Because we have a non-standard function cis(), even when the variables are moved back they won't update in our display matrix.
+GetType cis0TMPZ,cis0vSTR : If cis0vSTR≠"NONE": Then : CopyVar cis0TMPZ,■ : DelVar cis0TMPZ : IfEnd
+GetType cis0TMPY,cis0vSTR : If cis0vSTR≠"NONE": Then : CopyVar cis0TMPY,Author : DelVar cis0TMPY : IfEnd
+GetType cis0TMPX,cis0vSTR : If cis0vSTR≠"NONE": Then : CopyVar cis0TMPX,Peter : DelVar cis0TMPX : IfEnd
+GetType cis0TMPW,cis0vSTR : If cis0vSTR≠"NONE": Then : CopyVar cis0TMPW,T : DelVar cis0TMPW : IfEnd
+GetType cis0TMPV,cis0vSTR : If cis0vSTR≠"NONE": Then : CopyVar cis0TMPV,Website : DelVar cis0TMPV : IfEnd
+GetType cis0TMPU,cis0vSTR : If cis0vSTR≠"NONE": Then : CopyVar cis0TMPU,classpad : DelVar cis0TMPU : IfEnd
+GetType cis0TMPT,cis0vSTR : If cis0vSTR≠"NONE": Then : CopyVar cis0TMPT,github : DelVar cis0TMPT : IfEnd
+GetType cis0TMPS,cis0vSTR : If cis0vSTR≠"NONE": Then : CopyVar cis0TMPS,io : DelVar cis0TMPS : IfEnd
+
+GetType cis0TMP0,cis0vSTR : If cis0vSTR≠"NONE": Then : CopyVar cis0TMP0,z : DelVar cis0TMP0 : IfEnd
+GetType cis0TMP1,cis0vSTR : If cis0vSTR≠"NONE": Then : CopyVar cis0TMP1,z_n : DelVar cis0TMP1 : IfEnd
+GetType cis0TMP2,cis0vSTR : If cis0vSTR≠"NONE": Then : CopyVar cis0TMP2,cis : DelVar cis0TMP2 : IfEnd
+GetType cis0TMP3,cis0vSTR : If cis0vSTR≠"NONE": Then : CopyVar cis0TMP3,n : DelVar cis0TMP3 : IfEnd
+GetType cis0TMP4,cis0vSTR : If cis0vSTR≠"NONE": Then : CopyVar cis0TMP4,λ : DelVar cis0TMP4 : IfEnd
+GetType cis0TMP5,cis0vSTR : If cis0vSTR≠"NONE": Then : CopyVar cis0TMP5,θ : DelVar cis0TMP5 : IfEnd
+GetType cis0TMP6,cis0vSTR : If cis0vSTR≠"NONE": Then : CopyVar cis0TMP6,α : DelVar cis0TMP6 : IfEnd
+GetType cis0TMP7,cis0vSTR : If cis0vSTR≠"NONE": Then : CopyVar cis0TMP7,β : DelVar cis0TMP7 : IfEnd
+
+ExpToStr cis0vDAN,cis0vSTR
+StrJoin "λ=",cis0vSTR,cis0vSTR
+StrJoin cis0vSTR,"    [⇒an]    [v1.0.0]",cis0vSTR
+
+DelVar cis0vAθ
+DelVar cis0vDAN
+DelVar cis0vLθ
+DelVar cis0vLIn
+DelVar cis0vLIz
+DelVar cis0vMOD
+DelVar cis0vPOL
+DelVar cis0vITR
+DelVar cis0vTMn
+DelVar cis0CPLX
+DelVar cis0_POW
+
+PrintNatural cis0vSan,cis0vSTR
+
+DelVar cis0vSTR
+DelVar cis0vSan
+
+Return an

@@ -1,0 +1,103 @@
+'©PETER TANNER 2020
+
+
+If l=u:Then
+
+DelVar U
+{}⇒Usoln
+{}⇒Usoln_
+{-∞,∞}⇒LIM_
+∫(f,x,l,U)⇒Usolv
+For 1⇒i To 2
+  lim(abs(Usolv),U,LIM_[i])⇒LIM__
+
+  GetType LIM__,TYPE
+  If TYPE="NUM" and LIM__=1:Then
+    augment({LIM_[i]},Usoln)⇒Usoln
+  IfEnd
+Next
+
+augment(getRight(solve(abs(Usolv)=1,U)),Usoln)⇒Usoln
+For 1⇒i To dim(Usoln)
+  If Usoln[i]>l:Then
+    If ∫(f,x,l,Usoln[i])=1:Then
+      augment({UP=Usoln[i]},Usoln_)⇒Usoln_
+    IfEnd
+  Else
+    If ∫(f,x,Usoln[i],u)=1:Then
+      augment({LOW=Usoln[i]},Usoln_)⇒Usoln_
+    IfEnd
+  IfEnd
+Next
+Usoln_⇒an
+
+ExpToStr u,STR
+StrJoin "other limits if ",STR,STR
+StrJoin STR," is a known limit",STR
+PrintNatural an,STR
+
+DelVar STR
+DelVar Usoln
+DelVar Usoln_
+DelVar Usolv
+DelVar TYPE
+DelVar LIM_
+Stop
+IfEnd
+
+
+∫(f,x,l,u)⇒CHK
+If CHK≠1:Then
+  PrintNatural sum_of(f)=CHK,"WARN ∑P≠1"
+IfEnd
+
+0.5=∫(f,x,MED,u)⇒MEDEq
+solve(MEDEq,MED,l,l,u)⇒MED_
+∫(x*f,x,l,u)⇒E
+∫(x^2*f,x,l,u)-E^2⇒VAR
+√(VAR)⇒SDEV
+
+∫(f,x,l,k)|k=x⇒CDF
+
+DelVar Ex
+DelVar VARx
+DelVar σ²
+DelVar SDEVx
+DelVar σ
+DelVar MEDx
+DelVar X
+
+'piecewise
+ExpToStr CDF,CDF
+ExpToStr l,l
+ExpToStr u,u
+StrJoin "piecewise(x<",l,STR
+StrJoin STR,",0,piecewise(",STR
+StrJoin STR,l,STR
+StrJoin STR,"≤x≤",STR
+StrJoin STR,u,STR
+StrJoin STR,",",STR
+StrJoin STR,CDF,STR
+StrJoin STR,",piecewise(x>",STR
+StrJoin STR,u,STR
+StrJoin STR,",1,1/0)))",STR
+
+DelVar CDF
+simplify([[Ex,E],[VARx(σ²),VAR],[SDEVx(σ),SDEV],[MEDx≈,getRight(MED_[1])],[MEDx,simplify(getRight(MEDEq))],[CDF(X≤x),strToExp(STR)]])⇒an
+
+PrintNatural an,"Summary [an]"
+
+If dim(MED_)≠1:Then
+  PrintNatural MED_,"WARN MULTIPLE MEDIANS FOUND"
+IfEnd
+
+DelVar l
+DelVar u
+DelVar E
+DelVar STR
+DelVar E2
+DelVar VAR
+DelVar CDF
+DelVar SDEV
+DelVar MED
+DelVar MEDEq

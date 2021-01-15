@@ -1,0 +1,129 @@
+'Args: tan0FUNC,tan0__a_,tan0__b_
+'Namespace: tan0
+
+'© PETER T. 2021
+'https://classpad.github.io
+'LICENSED UNDER GPL-3.0
+'See COPYING file license information. You MUST include this file and note any changes with your fork.
+
+'VARIABLE MAPPING:
+'STR => tan0vSTR
+'xf => tan0Fx__
+'yf => tan0Fy__
+'a_y => tan0_a_y
+'b_y => tan0_b_y
+'ax => tan0axis
+'a_ => tan0__a_
+'b_ => tan0__b_
+'a => tan0___a
+'b => tan0___b
+'f => tan0FUNC
+'VX => tan0__VX
+'VX_ => tan0_VX_
+'VY => tan0__VY
+'VY_ => tan0_VY_
+
+'WARNING: Manual replacements required:
+'v_x
+'v_y
+
+' --- ONLY COPY BELOW THIS SECTION ---
+
+'© PETER T. 2021
+'classpad.github.io
+'LICENSED UNDER GPL-3.0
+'See COPYING file license information. You MUST include this file and note any changes with your fork.
+
+getRight(solve(tan0FUNC,x))⇒tan0Fx__
+getRight(solve(tan0FUNC,y))⇒tan0Fy__
+'PrintNatural {tan0Fx__,tan0Fy__}
+ExpToStr tan0Fx__,tan0vSTR
+StrCmp tan0vSTR,"No Solution",tan0vSTR
+If tan0vSTR=0:Then
+  Message "Must be an equality between y and x: no x variable in equality"
+  Return "Must be an equality between y and x: no x variable in equality"
+  Stop
+IfEnd
+ExpToStr tan0Fy__,tan0vSTR
+StrCmp tan0vSTR,"No Solution",tan0vSTR
+If tan0vSTR=0:Then
+  Message "Must be an equality between y and x: no y variable in equality"
+  Return "Must be an equality between y and x: no x variable in equality"
+  Stop
+IfEnd
+
+Input tan0axis,"Select: x [1] or y [2] range?","[v1.0.0]"
+
+If tan0axis=1:Then
+  tan0__a_⇒tan0___a
+  tan0__b_⇒tan0___b
+  tan0Fy__[1]|x=tan0___a⇒tan0_a_y
+  tan0Fy__[1]|x=tan0___b⇒tan0_b_y
+ElseIf tan0axis=2:Then
+  getRight(solve(tan0FUNC|y=tan0__a_,x))⇒tan0___a
+  tan0___a[1]⇒tan0___a
+  getRight(solve(tan0FUNC|y=tan0__b_,x))⇒tan0___b
+  tan0___b[1]⇒tan0___b
+'cant be bothered to rename to x_a/x_b
+  tan0Fy__[1]|x=tan0___a⇒tan0_a_y
+  tan0Fy__[1]|x=tan0___b⇒tan0_b_y
+Else
+  Message "Invalid axis choice"
+  Return "Invalid axis choice"
+  Stop
+IfEnd
+
+'PrintNatural {tan0___a,tan0___b,tan0_a_y,tan0_b_y}
+abs(π*∫((tan0Fy__[1])^2,x,tan0___a,tan0___b))⇒tan0__VX
+abs(π*∫((tan0Fx__[1])^2,y,tan0_a_y,tan0_b_y))⇒tan0__VY
+abs(2π*∫(x×tan0Fy__[1],x,tan0___a,tan0___b))⇒tan0_VY_
+abs(2π*∫(y×tan0Fx__[1],y,tan0_a_y,tan0_b_y))⇒tan0_VX_
+
+GetType v_x,tan0vSTR : If tan0vSTR≠"NONE": Then : CopyVar v_x,tan0TMP0 : DelVar v_x : IfEnd
+GetType v_y,tan0vSTR : If tan0vSTR≠"NONE": Then : CopyVar v_y,tan0TMP1 : DelVar v_y : IfEnd
+GetType about_x,tan0vSTR : If tan0vSTR≠"NONE": Then : CopyVar about_x,tan0TMP2 : DelVar about_x : IfEnd
+GetType about_y,tan0vSTR : If tan0vSTR≠"NONE": Then : CopyVar about_y,tan0TMP3 : DelVar about_y : IfEnd
+
+GetType ■,tan0vSTR : If tan0vSTR≠"NONE": Then : CopyVar ■,tan0TMPZ : DelVar ■ : IfEnd
+GetType Author,tan0vSTR : If tan0vSTR≠"NONE": Then : CopyVar Author,tan0TMPY : DelVar Author : IfEnd
+GetType Peter,tan0vSTR : If tan0vSTR≠"NONE": Then : CopyVar Peter,tan0TMPX : DelVar Peter : IfEnd
+GetType T,tan0vSTR : If tan0vSTR≠"NONE": Then : CopyVar T,tan0TMPW : DelVar T : IfEnd
+GetType Website,tan0vSTR : If tan0vSTR≠"NONE": Then : CopyVar Website,tan0TMPV : DelVar Website : IfEnd
+GetType classpad,tan0vSTR : If tan0vSTR≠"NONE": Then : CopyVar classpad,tan0TMPU : DelVar classpad : IfEnd
+GetType github,tan0vSTR : If tan0vSTR≠"NONE": Then : CopyVar github,tan0TMPT : DelVar github : IfEnd
+GetType io,tan0vSTR : If tan0vSTR≠"NONE": Then : CopyVar io,tan0TMPS : DelVar io : IfEnd
+
+[[v_x,tan0__VX,approx(tan0__VX)],[v_y,tan0__VY,approx(tan0__VY)],[v_y(about_y),tan0_VY_,approx(tan0_VY_)],[v_x(about_x),tan0_VX_,approx(tan0_VX_)]]⇒an
+trn(augment(trn(an),trn([[Website,Author,■],[classpad×github×io,Peter×T,■]])))⇒tan0_San
+
+GetType tan0TMPZ,tan0vSTR : If tan0vSTR≠"NONE": Then : CopyVar tan0TMPZ,■ : DelVar tan0TMPZ : IfEnd
+GetType tan0TMPY,tan0vSTR : If tan0vSTR≠"NONE": Then : CopyVar tan0TMPY,Author : DelVar tan0TMPY : IfEnd
+GetType tan0TMPX,tan0vSTR : If tan0vSTR≠"NONE": Then : CopyVar tan0TMPX,Peter : DelVar tan0TMPX : IfEnd
+GetType tan0TMPW,tan0vSTR : If tan0vSTR≠"NONE": Then : CopyVar tan0TMPW,T : DelVar tan0TMPW : IfEnd
+GetType tan0TMPV,tan0vSTR : If tan0vSTR≠"NONE": Then : CopyVar tan0TMPV,Website : DelVar tan0TMPV : IfEnd
+GetType tan0TMPU,tan0vSTR : If tan0vSTR≠"NONE": Then : CopyVar tan0TMPU,classpad : DelVar tan0TMPU : IfEnd
+GetType tan0TMPT,tan0vSTR : If tan0vSTR≠"NONE": Then : CopyVar tan0TMPT,github : DelVar tan0TMPT : IfEnd
+GetType tan0TMPS,tan0vSTR : If tan0vSTR≠"NONE": Then : CopyVar tan0TMPS,io : DelVar tan0TMPS : IfEnd
+  
+GetType tan0TMP0,tan0vSTR : If tan0vSTR≠"NONE": Then : CopyVar tan0TMP0,v_x : DelVar tan0TMP0 : IfEnd
+GetType tan0TMP1,tan0vSTR : If tan0vSTR≠"NONE": Then : CopyVar tan0TMP1,v_y : DelVar tan0TMP1 : IfEnd
+GetType tan0TMP2,tan0vSTR : If tan0vSTR≠"NONE": Then : CopyVar tan0TMP2,about_x : DelVar tan0TMP2 : IfEnd
+GetType tan0TMP3,tan0vSTR : If tan0vSTR≠"NONE": Then : CopyVar tan0TMP3,about_y : DelVar tan0TMP3 : IfEnd
+
+DelVar tan0vSTR
+DelVar tan0Fx__
+DelVar tan0Fy__
+DelVar tan0__VX
+DelVar tan0__VY
+DelVar tan0_VX_
+DelVar tan0_VY_
+DelVar tan0___a
+DelVar tan0___b
+DelVar tan0_a_y
+DelVar tan0_b_y
+DelVar tan0axis
+
+PrintNatural tan0_San,"Exact/approx volume   [⇒an]    [v1.0.0]"
+DelVar tan0_San
+
+Return an

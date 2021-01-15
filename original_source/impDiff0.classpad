@@ -1,0 +1,108 @@
+getRight(impDiff(EQN,x,y))⇒EQN1
+impDiff(EQN1,x,y)⇒EQN2
+
+getRight(solve({EQN1|y'=0,EQN},{x,y})|{x=1/0,y=1/0})⇒EXTREMA
+
+GetType EXTREMA,EXTREMAT
+
+If EXTREMAT="LIST": Then
+
+DelVar dy
+DelVar dx
+DelVar d²y
+DelVar dx²
+DelVar yVAL
+DelVar xVAL
+{yVAL}⇒yEXTREMA
+{xVAL}⇒xEXTREMA
+{d²y/dx²}⇒d2E
+
+EXTREMA[1]⇒EXTREMAT
+EXTREMA[2]⇒EXTREMT2
+GetType EXTREMAT,EXTREMAT
+GetType EXTREMT2,EXTREMT2
+If (EXTREMAT="NUM" or EXTREMAT="EXPR") and (EXTREMT2="NUM" or EXTREMT2="EXPR"): Then
+  augment(xEXTREMA,{EXTREMA[1]})⇒xEXTREMA
+  augment(yEXTREMA,{EXTREMA[2]})⇒yEXTREMA
+  augment(d2E,{EQN2|{x=EXTREMA[1],y=EXTREMA[2],y'=0}})⇒d2E
+Else
+  For 1⇒i To dim(EXTREMA)
+    EXTREMA[i]⇒EXTREMA_
+    GetType EXTREMA_,EXTREMAT
+    If EXTREMAT="LIST": Then
+      augment(xEXTREMA,subList(EXTREMA_,1,1))⇒xEXTREMA
+      augment(yEXTREMA,subList(EXTREMA_,2,2))⇒yEXTREMA
+      augment(d2E,{EQN2|{y'=d}|{x=EXTREMA_[1],y=EXTREMA_[2],d=0}})⇒d2E
+    IfEnd
+  Next
+IfEnd
+
+listToMat(xEXTREMA,yEXTREMA,d2E)⇒an
+PrintNatural an,"dy/dx=0 [an]"
+
+DelVar EXTREMA_
+DelVar d2E
+DelVar xEXTREMA
+DelVar yEXTREMA
+
+Else:
+
+solve(0=1)⇒an
+PrintNatural an,"dy/dx=0 [an]"
+
+IfEnd
+
+DelVar EXTREMAT
+DelVar EXTREMT2
+
+'----
+{0=EQN2,y'=EQN1,EQN}|y'=d⇒SLV
+getRight(solve(SLV,{x,y,d})|{x=1/0,y=1/0})⇒INFLECT
+DelVar SLV
+GetType INFLECT,INFLECTT
+
+If INFLECTT="LIST": Then
+
+{yVAL}⇒yINFLECT
+{xVAL}⇒xINFLECT
+{dy/dx}⇒dINFLECT
+
+INFLECT[1]⇒INFLECTT
+INFLECT[2]⇒INFLECT2
+INFLECT[3]⇒INFLECT3
+GetType INFLECTT,INFLECTT
+GetType INFLECT2,INFLECT2
+GetType INFLECT3,INFLECT3
+If (INFLECTT="NUM" or INFLECTT="EXPR") and (INFLECT2="NUM" or INFLECT2="EXPR") and (INFLECT3="NUM" or INFLECT3="EXPR"): Then
+  augment(xINFLECT,{INFLECT[1]})⇒xINFLECT
+  augment(yINFLECT,{INFLECT[2]})⇒yINFLECT
+  augment(dINFLECT,{INFLECT[3]})⇒dINFLECT
+Else
+  For 1⇒i To dim(INFLECT)
+    INFLECT[i]⇒INFLECT_
+    GetType INFLECT_,INFLECTT
+    If INFLECTT="LIST": Then
+      augment(xINFLECT,subList(INFLECT_,1,1))⇒xINFLECT
+      augment(yINFLECT,subList(INFLECT_,2,2))⇒yINFLECT
+      augment(dINFLECT,subList(INFLECT_,3,3))⇒dINFLECT
+    IfEnd
+  Next
+IfEnd
+
+listToMat(xINFLECT,yINFLECT,dINFLECT)⇒an0
+PrintNatural an0,"d²y/dx²=0 [an0]"
+
+DelVar INFLECT_
+DelVar xINFLECT
+DelVar yINFLECT
+DelVar dINFLECT
+Else:
+
+solve(0=1)⇒an0
+PrintNatural solve(0=1),"d²y/dx²=0 [an0]"
+
+IfEnd
+
+DelVar INFLECTT
+DelVar INFLECT2
+DelVar INFLECT3

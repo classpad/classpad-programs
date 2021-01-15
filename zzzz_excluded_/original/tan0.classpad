@@ -1,0 +1,44 @@
+
+getRight(solve(f,x))⇒xf
+getRight(solve(f,y))⇒yf
+PrintNatural {xf,yf}
+ExpToStr xf,STR
+StrCmp STR,"No Solution",STR
+If STR=0:Then
+  Message "Must be an equality between y and x: no x variable in equality"
+  Stop
+IfEnd
+ExpToStr yf,STR
+StrCmp STR,"No Solution",STR
+If STR=0:Then
+  Message "Must be an equality between y and x: no y variable in equality"
+  Stop
+IfEnd
+
+Input ax,"x(1) or y(2) range?"
+
+If ax=1:Then
+a_⇒a
+b_⇒b
+yf[1]|x=a⇒a_y
+yf[1]|x=b⇒b_y
+ElseIf ax=2:Then
+getRight(solve(f|y=a_,x))⇒a
+a[1]⇒a
+getRight(solve(f|y=b_,x))⇒b
+b[1]⇒b
+'cant be botered to rreame to x_a/x_b
+yf[1]|x=a⇒a_y
+yf[1]|x=b⇒b_y
+Else
+  Message "Invalid"
+IfEnd
+
+'PrintNatural {a,b,a_y,b_y}
+abs(π*∫((yf[1])^2,x,a,b))⇒VX
+abs(π*∫((xf[1])^2,y,a_y,b_y))⇒VY
+abs(2π*∫(x×yf[1],x,a,b))⇒VY_
+abs(2π*∫(y×xf[1],y,a_y,b_y))⇒VX_
+[[vx,VX,approx(VX)],[vy,VY,approx(VY)],[vy(about_y),VY_,approx(VY_)],[vx(about_x),VX_,approx(VX_)]]⇒an
+
+PrintNatural an

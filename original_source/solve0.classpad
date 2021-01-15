@@ -1,0 +1,10 @@
+dim(EQN)⇒DIM_
+If DIM_[1]=DIM_[2]-1 and DIM_[1]>1: Then
+  ref(EQN)⇒an0
+  PrintNatural an0,"Echelon form [an0]"
+  trn(subMat(EQN,1,1,DIM_[1],DIM_[1])^(-1)×subMat(EQN,1,DIM_[2],DIM_[1],DIM_[2]))⇒an
+  PrintNatural an,"SOLNS [an]"
+  DelVar DIM_
+Else 
+  Message "ERROR: input must be an n×n+1 matrix, where n>1"
+IfEnd

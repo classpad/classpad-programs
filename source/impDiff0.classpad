@@ -1,0 +1,248 @@
+'Args: iDf0_EQN
+'Namespace: iDf0
+
+'© PETER T. 2021
+'https://classpad.github.io
+'LICENSED UNDER GPL-3.0
+'See COPYING file license information. You MUST include this file and note any changes with your fork.
+
+'VARIABLE MAPPING:
+'EQN2 => iDf0vEQ2
+'EQN1 => iDf0vEQ1
+'EQN => iDf0_EQN
+'i => iDf0vITR
+'yEXTREMA => iDf0vEXy
+'xEXTREMA => iDf0vEXx
+'dE => iDf0vd1E
+'d2E => iDf0vd2E
+'EXTREMA => iDf0vEX_
+'EXTREMA_ => iDf0vEXc
+'EXTREMAT => iDf0vET1
+'EXTREMT2 => iDf0vET2
+'yINFLECT => iDf0vIFy
+'xINFLECT => iDf0vIFx
+'dINFLECT => dE => iDf0vd1E
+'INFLECT => iDf0vIF_
+'INFLECT_ => iDf0vIFc
+'INFLECTT => iDf0vIT1
+'INFLECT2 => iDf0vIT2
+'INFLECT3 => iDf0vIT3
+
+
+'test: y^5=x^3+y-x
+' --- ONLY COPY BELOW THIS SECTION ---
+
+'© PETER T. 2021
+'classpad.github.io
+'LICENSED UNDER GPL-3.0
+'See COPYING file license information. You MUST include this file and note any changes with your fork.
+
+getRight(impDiff(iDf0_EQN,x,y))⇒iDf0vEQ1
+impDiff(iDf0vEQ1,x,y)⇒iDf0vEQ2
+
+getRight(solve({iDf0vEQ1|y'=0,iDf0_EQN},{x,y})|{x=1/0,y=1/0})⇒iDf0vEX_
+
+GetType iDf0vEX_,iDf0vET1
+
+GetType equals,iDf0vSTR : If iDf0vSTR≠"NONE": Then : CopyVar equals,iDf0TMP6 : DelVar equals : IfEnd
+GetType f,iDf0vSTR : If iDf0vSTR≠"NONE": Then : CopyVar f,iDf0TMP7 : DelVar f : IfEnd
+GetType x,iDf0vSTR : If iDf0vSTR≠"NONE": Then : CopyVar x,iDf0TMP8 : DelVar x : IfEnd
+
+GetType ■,iDf0vSTR : If iDf0vSTR≠"NONE": Then : CopyVar ■,iDf0TMPZ : DelVar ■ : IfEnd
+GetType Author,iDf0vSTR : If iDf0vSTR≠"NONE": Then : CopyVar Author,iDf0TMPY : DelVar Author : IfEnd
+GetType Peter,iDf0vSTR : If iDf0vSTR≠"NONE": Then : CopyVar Peter,iDf0TMPX : DelVar Peter : IfEnd
+GetType T,iDf0vSTR : If iDf0vSTR≠"NONE": Then : CopyVar T,iDf0TMPW : DelVar T : IfEnd
+GetType Website,iDf0vSTR : If iDf0vSTR≠"NONE": Then : CopyVar Website,iDf0TMPV : DelVar Website : IfEnd
+GetType classpad,iDf0vSTR : If iDf0vSTR≠"NONE": Then : CopyVar classpad,iDf0TMPU : DelVar classpad : IfEnd
+GetType github,iDf0vSTR : If iDf0vSTR≠"NONE": Then : CopyVar github,iDf0TMPT : DelVar github : IfEnd
+GetType io,iDf0vSTR : If iDf0vSTR≠"NONE": Then : CopyVar io,iDf0TMPS : DelVar io : IfEnd
+
+(iDf0vEQ2|y'=d)|d=iDf0vEQ1⇒iDf0vEXP
+[[getLeft(iDf0_EQN),equals,getRight(iDf0_EQN)],[f'(x,y),equals,iDf0vEQ1],[f''(x,y),equals,iDf0vEQ2],[f''(x,y),equals,iDf0vEXP]]⇒an0
+trn(augment(trn(an0),trn([[Author,■,Website],[Peter×T,■,classpad×github×io]])))⇒iDf0San0
+DelVar iDf0vEXP
+
+GetType iDf0TMPY,iDf0vSTR : If iDf0vSTR≠"NONE": Then : CopyVar iDf0TMPY,Author : DelVar iDf0TMPY : IfEnd
+GetType iDf0TMPX,iDf0vSTR : If iDf0vSTR≠"NONE": Then : CopyVar iDf0TMPX,Peter : DelVar iDf0TMPX : IfEnd
+GetType iDf0TMPW,iDf0vSTR : If iDf0vSTR≠"NONE": Then : CopyVar iDf0TMPW,T : DelVar iDf0TMPW : IfEnd
+GetType iDf0TMPV,iDf0vSTR : If iDf0vSTR≠"NONE": Then : CopyVar iDf0TMPV,Website : DelVar iDf0TMPV : IfEnd
+GetType iDf0TMPU,iDf0vSTR : If iDf0vSTR≠"NONE": Then : CopyVar iDf0TMPU,classpad : DelVar iDf0TMPU : IfEnd
+GetType iDf0TMPT,iDf0vSTR : If iDf0vSTR≠"NONE": Then : CopyVar iDf0TMPT,github : DelVar iDf0TMPT : IfEnd
+GetType iDf0TMPS,iDf0vSTR : If iDf0vSTR≠"NONE": Then : CopyVar iDf0TMPS,io : DelVar iDf0TMPS : IfEnd
+GetType iDf0TMP6,iDf0vSTR : If iDf0vSTR≠"NONE": Then : CopyVar iDf0TMP6,equals : DelVar iDf0TMP6 : IfEnd
+GetType iDf0TMP7,iDf0vSTR : If iDf0vSTR≠"NONE": Then : CopyVar iDf0TMP7,f : DelVar iDf0TMP7 : IfEnd
+GetType iDf0TMP8,iDf0vSTR : If iDf0vSTR≠"NONE": Then : CopyVar iDf0TMP8,x : DelVar iDf0TMP8 : IfEnd
+  
+GetType dy,iDf0vSTR : If iDf0vSTR≠"NONE": Then : CopyVar dy,iDf0TMP0 : DelVar dy : IfEnd
+GetType d²y,iDf0vSTR : If iDf0vSTR≠"NONE": Then : CopyVar d²y,iDf0TMP1 : DelVar d²y : IfEnd
+GetType dx,iDf0vSTR : If iDf0vSTR≠"NONE": Then : CopyVar dx,iDf0TMP2 : DelVar dx : IfEnd
+GetType dx²,iDf0vSTR : If iDf0vSTR≠"NONE": Then : CopyVar dx²,iDf0TMP3 : DelVar dx² : IfEnd
+GetType P_x,iDf0vSTR : If iDf0vSTR≠"NONE": Then : CopyVar P_x,iDf0TMP4 : DelVar P_x : IfEnd
+GetType P_y,iDf0vSTR : If iDf0vSTR≠"NONE": Then : CopyVar P_y,iDf0TMP5 : DelVar P_y : IfEnd
+'---
+'GetType P,iDf0vSTR : 'If iDf0vSTR≠"NONE": 'Then : 'CopyVar P,iDf0TMP9 : 'DelVar P : 'IfEnd
+GetType ı,iDf0vSTR : If iDf0vSTR≠"NONE": Then : CopyVar ı,iDf0TMPa : DelVar ı : IfEnd
+'GetType LMAX,iDf0vSTR : 'If iDf0vSTR≠"NONE": 'Then : 'CopyVar LMAX,iDf0TMPb : 'DelVar LMAX : 'IfEnd
+'GetType LMIN,iDf0vSTR : 'If iDf0vSTR≠"NONE": 'Then : 'CopyVar LMIN,iDf0TMPc : 'DelVar LMIN : 'IfEnd
+'GetType INFL,iDf0vSTR : 'If iDf0vSTR≠"NONE": 'Then : 'CopyVar INFL,iDf0TMPd : 'DelVar INFL : 'IfEnd
+'GetType ERROR,iDf0vSTR : 'If iDf0vSTR≠"NONE": 'Then : 'CopyVar ERROR,iDf0TMPe : 'DelVar ERROR : 'IfEnd
+
+If iDf0vET1="LIST": Then
+  {P_y}⇒iDf0vEXy
+  {P_x}⇒iDf0vEXx
+  {dy/dx}⇒iDf0vd1E
+  {d²y/dx²}⇒iDf0vd2E
+  {ı(■)}⇒iDf0vTYP
+'Not working on getting point type recognition for now. Putting a dummy function in to supress updates
+  true⇒iDf0vSW_
+
+  If dim(iDf0vEX_)=2 : Then
+    iDf0vEX_[1]⇒iDf0vET1
+    iDf0vEX_[2]⇒iDf0vET2
+    GetType iDf0vET1,iDf0vET1
+    GetType iDf0vET2,iDf0vET2
+    If (iDf0vET1="NUM" or iDf0vET1="EXPR") and (iDf0vET2="NUM" or iDf0vET2="EXPR"): Then
+      augment(iDf0vEXx,{iDf0vEX_[1]})⇒iDf0vEXx
+      augment(iDf0vEXy,{iDf0vEX_[2]})⇒iDf0vEXy
+      augment(iDf0vd1E,{0})⇒iDf0vd1E
+      augment(iDf0vd2E,{(iDf0vEQ2)|{y'=0}|{x=iDf0vEX_[1]}|{y=iDf0vEX_[2]}})⇒iDf0vd2E
+      augment(iDf0vTYP,{ı(■)})⇒iDf0vTYP
+      false⇒iDf0vSW_
+    IfEnd
+    DelVar iDf0vET2
+  IfEnd
+
+  If iDf0vSW_ : Then
+    For 1⇒iDf0vITR To dim(iDf0vEX_)
+      iDf0vEX_[iDf0vITR]⇒iDf0vEXc
+      GetType iDf0vEXc,iDf0vET1
+      If iDf0vET1="LIST": Then
+        augment(iDf0vEXx,{iDf0vEXc[1]})⇒iDf0vEXx
+        augment(iDf0vEXy,{iDf0vEXc[2]})⇒iDf0vEXy
+        augment(iDf0vd1E,{0})⇒iDf0vd1E
+        augment(iDf0vd2E,{(iDf0vEQ2)|{y'=0}|{x=iDf0vEXc[1]}|{y=iDf0vEXc[2]}})⇒iDf0vd2E
+        augment(iDf0vTYP,{ı(■)})⇒iDf0vTYP
+      IfEnd
+    Next
+  IfEnd
+
+  listToMat(iDf0vEXx,iDf0vEXy,iDf0vd1E,iDf0vd2E,iDf0vTYP)⇒an
+
+  DelVar iDf0vd1E
+  DelVar iDf0vd2E
+  DelVar iDf0vEXc
+  DelVar iDf0vEXx
+  DelVar iDf0vEXy
+  DelVar iDf0vSW_
+  DelVar iDf0vITR
+  DelVar iDf0vTYP
+Else:
+  listToMat({P_x,Null},{P_y,Null},{dy/dx,Null},{d²y/dx²,Null},{ı(■),ı(■)})⇒an
+'  solve(0=1)⇒an
+IfEnd
+CopyVar an,an1
+DelVar iDf0vEX_
+DelVar iDf0vET1
+'Incase the user decides to cancel out here, reassign variables then do the process over again if they continue.
+GetType iDf0TMPZ,iDf0vSTR : If iDf0vSTR≠"NONE": Then : CopyVar iDf0TMPZ,■ : DelVar iDf0TMPZ : IfEnd
+GetType iDf0TMP0,iDf0vSTR : If iDf0vSTR≠"NONE": Then : CopyVar iDf0TMP0,dy : DelVar iDf0TMP0 : IfEnd
+GetType iDf0TMP1,iDf0vSTR : If iDf0vSTR≠"NONE": Then : CopyVar iDf0TMP1,d²y : DelVar iDf0TMP1 : IfEnd
+GetType iDf0TMP2,iDf0vSTR : If iDf0vSTR≠"NONE": Then : CopyVar iDf0TMP2,dx : DelVar iDf0TMP2 : IfEnd
+GetType iDf0TMP3,iDf0vSTR : If iDf0vSTR≠"NONE": Then : CopyVar iDf0TMP3,dx² : DelVar iDf0TMP3 : IfEnd
+GetType iDf0TMP4,iDf0vSTR : If iDf0vSTR≠"NONE": Then : CopyVar iDf0TMP4,P_x : DelVar iDf0TMP4 : IfEnd
+GetType iDf0TMP5,iDf0vSTR : If iDf0vSTR≠"NONE": Then : CopyVar iDf0TMP5,P_y : DelVar iDf0TMP5 : IfEnd
+'GetType iDf0TMP9,iDf0vSTR : 'If iDf0vSTR≠"NONE": 'Then : 'CopyVar iDf0TMP9,P : 'DelVar iDf0TMP9 : 'IfEnd
+GetType iDf0TMPa,iDf0vSTR : If iDf0vSTR≠"NONE": Then : CopyVar iDf0TMPa,ı : DelVar iDf0TMPa : IfEnd
+DelVar iDf0vSTR
+
+PrintNatural iDf0San0,"Functions    [⇒an0]    [v1.0.0]"
+DelVar iDf0San0
+PrintNatural an1,"dy/dx=0    [⇒an, ⇒an1]    [v1.0.0]"
+
+'---- second part - we split it because this part is more computationally intensive so we give the opportunity for the user to only evaluate the first part.
+GetType dy,iDf0vSTR : If iDf0vSTR≠"NONE": Then : CopyVar dy,iDf0TMP0 : DelVar dy : IfEnd
+GetType d²y,iDf0vSTR : If iDf0vSTR≠"NONE": Then : CopyVar d²y,iDf0TMP1 : DelVar d²y : IfEnd
+GetType dx,iDf0vSTR : If iDf0vSTR≠"NONE": Then : CopyVar dx,iDf0TMP2 : DelVar dx : IfEnd
+GetType dx²,iDf0vSTR : If iDf0vSTR≠"NONE": Then : CopyVar dx²,iDf0TMP3 : DelVar dx² : IfEnd
+GetType P_x,iDf0vSTR : If iDf0vSTR≠"NONE": Then : CopyVar P_x,iDf0TMP4 : DelVar P_x : IfEnd
+GetType P_y,iDf0vSTR : If iDf0vSTR≠"NONE": Then : CopyVar P_y,iDf0TMP5 : DelVar P_y : IfEnd
+'GetType P,iDf0vSTR : 'If iDf0vSTR≠"NONE": 'Then : 'CopyVar P,iDf0TMP9 : 'DelVar P : 'IfEnd
+GetType ı,iDf0vSTR : If iDf0vSTR≠"NONE": Then : CopyVar ı,iDf0TMPa : DelVar ı : IfEnd
+
+getRight(solve(({0=iDf0vEQ2,y'=iDf0vEQ1,iDf0_EQN}|y'=d),{x,y,d})|{x=1/0,y=1/0})⇒iDf0vIF_
+GetType iDf0vIF_,iDf0vIT1
+
+If iDf0vIT1="LIST": Then
+
+  {P_y}⇒iDf0vIFy
+  {P_x}⇒iDf0vIFx
+  {dy/dx}⇒iDf0vd1E
+  {d²y/dx²}⇒iDf0vd2E
+  {ı(■)}⇒iDf0vTYP
+  true⇒iDf0vSW_
+
+  If dim(iDf0vIF_)=3 : Then
+    iDf0vIF_[1]⇒iDf0vIT1
+    iDf0vIF_[2]⇒iDf0vIT2
+    iDf0vIF_[3]⇒iDf0vIT3
+    GetType iDf0vIT1,iDf0vIT1
+    GetType iDf0vIT2,iDf0vIT2
+    GetType iDf0vIT3,iDf0vIT3
+    If (iDf0vIT1="NUM" or iDf0vIT1="EXPR") and (iDf0vIT2="NUM" or iDf0vIT2="EXPR") and (iDf0vIT3="NUM" or iDf0vIT3="EXPR"): Then
+      augment(iDf0vIFx,{iDf0vIF_[1]})⇒iDf0vIFx
+      augment(iDf0vIFy,{iDf0vIF_[2]})⇒iDf0vIFy
+      augment(iDf0vd1E,{iDf0vIF_[3]})⇒iDf0vd1E
+      augment(iDf0vd2E,{0})⇒iDf0vd2E
+      augment(iDf0vTYP,{ı(■)})⇒iDf0vTYP
+      false⇒iDf0vSW_
+    IfEnd
+    DelVar iDf0vIT2
+    DelVar iDf0vIT3  
+  IfEnd
+
+  If iDf0vSW_ : Then
+    For 1⇒iDf0vITR To dim(iDf0vIF_)
+      iDf0vIF_[iDf0vITR]⇒iDf0vIFc
+      GetType iDf0vIFc,iDf0vIT1
+      If iDf0vIT1="LIST": Then
+        augment(iDf0vIFx,{iDf0vIFc[1]})⇒iDf0vIFx
+        augment(iDf0vIFy,{iDf0vIFc[2]})⇒iDf0vIFy
+        augment(iDf0vd1E,{iDf0vIFc[3]})⇒iDf0vd1E
+        augment(iDf0vd2E,{0})⇒iDf0vd2E
+        augment(iDf0vTYP,{ı(■)})⇒iDf0vTYP
+      IfEnd
+    Next
+  IfEnd
+
+  listToMat(iDf0vIFx,iDf0vIFy,iDf0vd1E,iDf0vd2E,iDf0vTYP)⇒an2
+
+  DelVar iDf0vIFc
+  DelVar iDf0vIFx
+  DelVar iDf0vIFy
+  DelVar iDf0vd1E
+  DelVar iDf0vd2E
+  DelVar iDf0vSW_
+  DelVar iDf0vITR
+  DelVar iDf0vTYP
+Else:
+  listToMat({P_x,Null},{P_y,Null},{dy/dx,Null},{d²y/dx²,Null},{ı(■),ı(■)})⇒an2
+'  solve(0=1)⇒an2
+IfEnd
+trn(augment(trn(an1),trn(an2)))⇒an
+DelVar iDf0vIT1
+DelVar iDf0vIF_
+DelVar iDf0vEQ1
+DelVar iDf0vEQ2
+GetType iDf0TMP0,iDf0vSTR : If iDf0vSTR≠"NONE": Then : CopyVar iDf0TMP0,dy : DelVar iDf0TMP0 : IfEnd
+GetType iDf0TMP1,iDf0vSTR : If iDf0vSTR≠"NONE": Then : CopyVar iDf0TMP1,d²y : DelVar iDf0TMP1 : IfEnd
+GetType iDf0TMP2,iDf0vSTR : If iDf0vSTR≠"NONE": Then : CopyVar iDf0TMP2,dx : DelVar iDf0TMP2 : IfEnd
+GetType iDf0TMP3,iDf0vSTR : If iDf0vSTR≠"NONE": Then : CopyVar iDf0TMP3,dx² : DelVar iDf0TMP3 : IfEnd
+GetType iDf0TMP4,iDf0vSTR : If iDf0vSTR≠"NONE": Then : CopyVar iDf0TMP4,P_x : DelVar iDf0TMP4 : IfEnd
+GetType iDf0TMP5,iDf0vSTR : If iDf0vSTR≠"NONE": Then : CopyVar iDf0TMP5,P_y : DelVar iDf0TMP5 : IfEnd
+'GetType iDf0TMP9,iDf0vSTR : 'If iDf0vSTR≠"NONE": 'Then : 'CopyVar iDf0TMP9,P : 'DelVar iDf0TMP9 : 'IfEnd
+GetType iDf0TMPa,iDf0vSTR : If iDf0vSTR≠"NONE": Then : CopyVar iDf0TMPa,ı : DelVar iDf0TMPa : IfEnd
+DelVar iDf0vSTR
+
+PrintNatural an2,"d²y/dx²=0    [⇒an, ⇒an2]    [v1.0.0]"
+
+Return an

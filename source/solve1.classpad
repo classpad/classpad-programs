@@ -1,0 +1,58 @@
+
+'Args: slv1FUNC
+'Namespace: slv1
+
+'© PETER T. 2021
+'https://classpad.github.io
+'LICENSED UNDER GPL-3.0
+'See COPYING file license information. You MUST include this file and note any changes with your fork.
+
+'VARIABLE MAPPING:
+'EQS => slv1FUNC
+'SOLN1 => slv1SLN1
+'SOLN2 => slv1SLN2
+'EQS_1s => slv1F1TY
+'EQS_2s => slv1F2TY
+'
+'EQS_1 => slv1F1__
+'EQS_2 => slv1F2__
+
+' --- ONLY COPY BELOW THIS SECTION ---
+
+'© PETER T. 2021
+'classpad.github.io
+'LICENSED UNDER GPL-3.0
+'See COPYING file license information. You MUST include this file and note any changes with your fork.
+
+solve(slv1FUNC[1],t)|{constn(1)=0}⇒slv1SLN1
+solve(slv1FUNC[2],t)|{constn(1)=0}⇒slv1SLN2
+
+solve(simplify(slv1FUNC[1]|slv1SLN2[1]),y)⇒slv1F1__
+solve(simplify(slv1FUNC[2]|slv1SLN1[1]),y)⇒slv1F2__
+
+GetType slv1F2__,slv1F2TY
+StrCmp slv1F2TY,"LIST",slv1F2TY
+GetType slv1F1__,slv1F1TY
+StrCmp slv1F1TY,"LIST",slv1F1TY
+If slv1F1TY=0 and slv1F2TY=0:Then
+  ({slv1F1__,slv1F2__})⇒an
+  ({slv1SLN2[1],slv1SLN1[1]})⇒an0
+ElseIf slv1F1TY=0:Then
+  ({slv1SLN2[1]})⇒an0
+  ({slv1F1__})⇒an
+Else
+  ({slv1F2__})⇒an
+  ({slv1SLN1[1]})⇒an0
+IfEnd
+
+DelVar slv1FUNC
+DelVar slv1SLN1
+DelVar slv1F1__
+DelVar slv1F1TY
+DelVar slv1SLN2
+DelVar slv1F2__
+DelVar slv1F2TY
+PrintNatural an,"Verify Solutions    [⇒an]    [v1.0.0]"
+PrintNatural an0,"Respective t values    [⇒an0]    [v1.0.0]"
+
+Return an
